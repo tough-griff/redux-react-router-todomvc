@@ -26,7 +26,7 @@ export default class TodoApp extends Component {
   render() {
     const { dispatch, location, todos } = this.props;
     const actions = bindActionCreators(TodoActions, dispatch);
-    const filter = location.pathname.replace('/', '');
+    const filter = location.pathname.replace('/todos/', '');
 
     return (
       <div>

@@ -47,13 +47,13 @@ export default class TodoFooter extends Component {
         {this.renderTodoCount()}
         <ul className="filters">
           <li>
-            <Link activeClassName="selected" to="all">All</Link>
+            <Link activeClassName="selected" to="/todos/all">All</Link>
           </li>
           <li>
-            <Link activeClassName="selected" to="active">Active</Link>
+            <Link activeClassName="selected" to="/todos/active">Active</Link>
           </li>
           <li>
-            <Link activeClassName="selected" to="completed">Completed</Link>
+            <Link activeClassName="selected" to="/todos/completed">Completed</Link>
           </li>
         </ul>
         {this.renderClearButton()}
