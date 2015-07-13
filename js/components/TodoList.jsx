@@ -4,6 +4,12 @@ import TodoFooter from './TodoFooter';
 import TodoItem from './TodoItem';
 import todoShape from './propShapes/todoShape';
 
+const FILTERS = {
+  all: () => true,
+  active: todo => !todo.isComplete,
+  completed: todo => todo.isComplete
+};
+
 /**
  * Displays the list of todos, as well as the toggle all checkbox.
  */
@@ -41,12 +47,6 @@ export default class TodoList extends Component {
 
   renderListItems() {
     const { actions, filter, todos } = this.props;
-
-    const FILTERS = {
-      all: () => true,
-      active: todo => !todo.isComplete,
-      completed: todo => todo.isComplete
-    };
 
     return todos.filter(FILTERS[filter]).map(todo => (
       <TodoItem
