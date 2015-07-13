@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import Router, { Route } from 'react-router';
 import { history } from 'react-router/lib/BrowserHistory';
 
-import TodoApp from './TodoApp';
+import { TodoApp } from '../components';
 
 /**
  * Top level component which handles routing.
  */
-export default class TodoRoot extends Component {
+export default class Root extends Component {
   render() {
     return (
       <Router history={history}>

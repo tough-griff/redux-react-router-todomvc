@@ -51,13 +51,13 @@ export default class TodoTextInput extends Component {
 
     return (
       <input
-        className={className}
-        placeholder={placeholder}
-        value={value}
         autoFocus={true}
-        type="text"
+        className={className}
         onChange={::this.handleChange}
         onKeyDown={::this.handleKeyDown}
+        placeholder={placeholder}
+        type="text"
+        value={value}
       />
     );
   }

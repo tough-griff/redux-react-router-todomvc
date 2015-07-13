@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { createRedux } from 'redux';
 import { Provider } from 'redux/react';
 
-import TodoRoot from '../components/TodoRoot';
+import { Root } from '../routers';
 import * as stores from '../stores/';
 
 export default class App extends Component {
@@ -11,7 +11,7 @@ export default class App extends Component {
 
     return (
       <Provider redux={redux}>
-        {() => <TodoRoot />}
+        {() => <Root />}
       </Provider>
     );
   }

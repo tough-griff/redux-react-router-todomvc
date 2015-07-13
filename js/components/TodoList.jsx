@@ -24,7 +24,7 @@ export default class TodoList extends Component {
   }
 
   renderFooter(completeCount) {
-    const { todos, actions } = this.props;
+    const { actions, todos } = this.props;
 
     if (!todos.length) return null;
 
@@ -62,10 +62,10 @@ export default class TodoList extends Component {
   renderToggle(completeCount) {
     return (
       <input
-        className="toggle-all"
-        type="checkbox"
         checked={completeCount === this.props.todos.length}
+        className="toggle-all"
         onChange={::this.handleToggle}
+        type="checkbox"
       />
     );
   }

@@ -59,8 +59,8 @@ export default class TodoItem extends Component {
     return (
       <TodoTextInput
         className="edit"
-        value={this.props.todo.label}
         onSave={::this.handleSave}
+        value={this.props.todo.label}
       />
     );
   }

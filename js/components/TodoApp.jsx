@@ -8,8 +8,10 @@ import todoShape from './propShapes/todoShape';
 import * as TodoActions from '../actions/TodoActions';
 
 /**
- * Top-level application container component. Passes the store's state through
- * as props, as necessary.
+ * Top-level application component. Connects to the Redux `Provider` stores,
+ * passing their state through as props.
+ * @see App
+ * @see todos
  */
 @connect(state => ({
   todos: state.todos
@@ -22,7 +24,7 @@ export default class TodoApp extends Component {
   }
 
   render() {
-    const { dispatch, todos, location } = this.props;
+    const { dispatch, location, todos } = this.props;
     const actions = bindActionCreators(TodoActions, dispatch);
     const filter = location.pathname.replace('/', '');
 
