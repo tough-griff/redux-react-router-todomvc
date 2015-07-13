@@ -23,6 +23,13 @@ export function addTodo(label) {
   };
 }
 
+// FIXME: this is just a stub--does nothing on the server.
+export function clearCompleteTodos() {
+  return {
+    type: types.CLEAR_COMPLETE_TODOS
+  };
+}
+
 export function deleteTodo(id) {
   return dispatch => {
     fetch(`${SERVER_URL}/todos/${id}`, {
@@ -53,6 +60,19 @@ export function editTodo(id, label) {
   };
 }
 
+export function fetchAllTodos() {
+  return dispatch => {
+    fetch(`${SERVER_URL}/todos`, {
+      method: 'GET'
+    })
+    .then(res => res.json())
+    .then(todos => dispatch({
+      type: types.FETCH_ALL_TODOS,
+      todos
+    }));
+  };
+}
+
 export function markTodo(id, isComplete) {
   return dispatch => {
     fetch(`${SERVER_URL}/todos/${id}`, {
@@ -68,5 +88,13 @@ export function markTodo(id, isComplete) {
       type: types.EDIT_TODO,
       todo
     }));
+  };
+}
+
+// FIXME this is just a stub--does nothing on the server.
+export function markAllTodos(checked) {
+  return {
+    type: types.MARK_ALL_TODOS,
+    checked
   };
 }

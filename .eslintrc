@@ -148,7 +148,11 @@ rules:
     -
       beforeColon: false
       afterColon: true
-  new-cap: 0                   # http://eslint.org/docs/rules/new-cap
+  new-cap:                     # http://eslint.org/docs/rules/new-cap
+    - 2
+    -
+      newIsCap: true
+      capIsNew: false
   no-multiple-empty-lines:     # http://eslint.org/docs/rules/no-multiple-empty-lines
     - 2
     -

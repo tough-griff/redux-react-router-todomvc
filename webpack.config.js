@@ -30,7 +30,18 @@ module.exports = {
     ],
     loaders: [
       {
-        loaders: ['react-hot', 'babel'],
+        loader: 'babel',
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        query: {
+          optional: ['runtime'],
+          stage: 0
+        }
+      }
+    ],
+    postLoaders: [
+      {
+        loader: 'react-hot',
         test: /\.jsx?$/,
         exclude: /node_modules/
       }

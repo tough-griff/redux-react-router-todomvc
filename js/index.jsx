@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import React from 'react';
 
-import TodoRoot from './components/TodoRoot';
+import App from './containers/App';
 
 $(document).ready(() => {
-  React.render(<TodoRoot />, $('.todoapp')[0]);
+  React.render(<App />, $('.todoapp')[0]);
 });

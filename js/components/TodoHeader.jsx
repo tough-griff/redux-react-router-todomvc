@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-// import TodoActions from '../actions/TodoActions';
 import TodoTextInput from './TodoTextInput';
 
 /**
@@ -8,11 +7,14 @@ import TodoTextInput from './TodoTextInput';
  * component.
  */
 export default class TodoHeader extends Component {
-  handleSave(label) {
-    if (label) return;
+  static propTypes = {
+    addTodo: PropTypes.func.isRequired
+  }
 
-    // TodoActions.create(label);
-    console.log(label);
+  handleSave(label) {
+    if (!label.length) return;
+
+    this.props.addTodo(label);
   }
 
   render() {
@@ -21,8 +23,8 @@ export default class TodoHeader extends Component {
         <h1>Todos</h1>
         <TodoTextInput
           className="new-todo"
+          onSave={::this.handleSave}
           placeholder="What needs to be done?"
-          onSave={this.handleSave}
         />
       </header>
     );

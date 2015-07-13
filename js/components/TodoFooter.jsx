@@ -1,46 +1,50 @@
-import _ from 'lodash';
-import classnames from 'classnames';
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-
-// import TodoActions from 'actions/TodoActions';
 
 /**
  * Manages routing using ReactRouter.Link, as well as renders a
- * 'Clear completed' button and complete tasks counter.
+ * 'Clear complete' button and complete tasks counter.
  */
-const TodoFooter = React.createClass({
-  propTypes: {
-    todos: PropTypes.arrayOf(PropTypes.object).isRequired
-  },
+export default class TodoFooter extends Component {
+  static propTypes = {
+    clearCompleteTodos: PropTypes.func.isRequired,
+    completeCount: PropTypes.number.isRequired,
+    incompleteCount: PropTypes.number.isRequired
+  }
 
-  /**
-   * Triggers the `removeCompletedItems` event.
-   */
   handleRemoveCompleted() {
-    // TodoActions.removeCompletedItems();
-  },
+    this.props.clearCompleteTodos();
+  }
 
-  render() {
-    // Calculate task numbers
-    const numTasks = this.props.todos.length;
-    const numComplete = _.filter(this.props.todos, 'isComplete').length;
-    const numIncomplete = numTasks - numComplete;
-
-    // Compute classes and labels
-    const buttonClasses = classnames('clear-completed', {
-      'hidden': !numComplete
-    });
-    const footerClasses = classnames('footer', {
-      'hidden': !numTasks
-    });
-    const numTasksLabel = (numIncomplete === 1) ? 'item' : 'items';
+  renderClearButton() {
+    if (!this.props.completeCount) return null;
 
     return (
-      <footer className={footerClasses}>
-        <span className="todo-count">
-          <strong>{numIncomplete}</strong> {numTasksLabel} remaining
-        </span>
+      <button
+        className="clear-completed"
+        onClick={::this.handleRemoveCompleted}
+      >
+        Clear complete
+      </button>
+    );
+  }
+
+  renderTodoCount() {
+    const { incompleteCount } = this.props;
+    const incompleteWord = incompleteCount || 'No';
+    const itemWord = incompleteCount === 1 ? 'task' : 'tasks';
+
+    return (
+      <span className="todo-count">
+        <strong>{incompleteWord}</strong> {itemWord} remaining
+      </span>
+    );
+  }
+
+  render() {
+    return (
+      <footer className="footer">
+        {this.renderTodoCount()}
         <ul className="filters">
           <li>
             <Link activeClassName="selected" to="all">All</Link>
@@ -52,15 +56,8 @@ const TodoFooter = React.createClass({
             <Link activeClassName="selected" to="completed">Completed</Link>
           </li>
         </ul>
-        <button
-          className={buttonClasses}
-          onClick={this.handleRemoveCompleted}
-        >
-          Clear completed
-        </button>
+        {this.renderClearButton()}
       </footer>
     );
   }
-});
-
-export default TodoFooter;
+}

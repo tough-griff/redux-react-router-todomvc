@@ -1,52 +1,57 @@
 import classnames from 'classnames';
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-// import TodoActions from '../actions/TodoActions';
 import TodoTextInput from './TodoTextInput';
 import todoShape from './propShapes/todoShape';
 
 /**
  * Represents a single todo item in a todo list.
  */
-const TodoItem = React.createClass({
-  propTypes: {
+export default class TodoItem extends Component {
+  static propTypes = {
+    deleteTodo: PropTypes.func.isRequired,
+    editTodo: PropTypes.func.isRequired,
+    markTodo: PropTypes.func.isRequired,
     todo: PropTypes.shape(todoShape).isRequired
-  },
+  }
 
-  getInitialState() {
-    return {};
-  },
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isEditing: false
+    };
+  }
 
   handleDestroy() {
-    // TodoActions.destroy(this.props.todo.id);
-    console.log(this.props.todo.id);
-  },
+    this.props.deleteTodo(this.props.todo.id);
+  }
 
   handleEdit() {
     this.setState({
       isEditing: true
     });
-  },
+  }
 
   handleSave(label) {
-    // TodoActions.update(this.props.todo.id, {
-      // label: label
-    // });
-    console.log(label);
+    const { id } = this.props.todo;
+
+    if (label.length) {
+      this.props.editTodo(id, label);
+    } else {
+      this.props.deleteTodo(id);
+    }
 
     this.setState({
       isEditing: false
     });
-  },
+  }
 
   handleToggle() {
     const { todo } = this.props;
 
-    // TodoActions.update(todo.id, {
-      // isComplete: !todo.isComplete
-    // });
-    console.log(!todo.isComplete);
-  },
+    this.props.markTodo(todo.id, !todo.isComplete);
+  }
 
   renderInput() {
     if (!this.state.isEditing) return null;
@@ -55,10 +60,10 @@ const TodoItem = React.createClass({
       <TodoTextInput
         className="edit"
         value={this.props.todo.label}
-        onSave={this.handleSave}
+        onSave={::this.handleSave}
       />
     );
-  },
+  }
 
   render() {
     const { todo } = this.props;
@@ -72,18 +77,18 @@ const TodoItem = React.createClass({
       <li className={classes}>
         <div className="view">
           <input
-            className="toggle"
-            type="checkbox"
             checked={todo.isComplete}
-            onChange={this.handleToggle}
+            className="toggle"
+            onChange={::this.handleToggle}
+            type="checkbox"
           />
-        <label onDoubleClick={this.handleEdit}>{todo.label}</label>
-          <button className="destroy" onClick={this.handleDestroy} />
+          <label onDoubleClick={::this.handleEdit}>
+            {todo.label}
+          </label>
+          <button className="destroy" onClick={::this.handleDestroy} />
         </div>
         {this.renderInput()}
       </li>
     );
   }
-});
-
-export default TodoItem;
+}

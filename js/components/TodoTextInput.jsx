@@ -1,23 +1,25 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 const ENTER_KEY_CODE = 13;
 
 /**
  * General purpose text input component.
  */
-const TodoTextInput = React.createClass({
-  propTypes: {
+export default class TodoTextInput extends Component {
+  static propTypes = {
     className: PropTypes.string.isRequired,
+    onSave: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    value: PropTypes.string,
-    onSave: PropTypes.func.isRequired
-  },
+    value: PropTypes.string
+  }
 
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       value: this.props.value || ''
     };
-  },
+  }
 
   // FIXME: properly register blur events on the input field.
   handleBlur() {
@@ -25,13 +27,13 @@ const TodoTextInput = React.createClass({
     this.setState({
       value: ''
     });
-  },
+  }
 
   handleChange(e) {
     this.setState({
       value: e.target.value
     });
-  },
+  }
 
   handleKeyDown(e) {
     if (e.keyCode !== ENTER_KEY_CODE) return;
@@ -40,7 +42,7 @@ const TodoTextInput = React.createClass({
     this.setState({
       value: ''
     });
-  },
+  }
 
   render() {
     const { className, placeholder } = this.props;
@@ -53,11 +55,9 @@ const TodoTextInput = React.createClass({
         value={value}
         autoFocus={true}
         type="text"
-        onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
+        onChange={::this.handleChange}
+        onKeyDown={::this.handleKeyDown}
       />
     );
   }
-});
-
-export default TodoTextInput;
+}

@@ -11,9 +11,10 @@ export default class TodoRoot extends Component {
   render() {
     return (
       <Router history={history}>
-        <Route name="all" path="/" component={TodoApp}>
-          <Route name="active" path="active" />
-          <Route name="completed" path="completed" />
+        <Route path="/" component={TodoApp}>
+          <Route path="all" />
+          <Route path="active" />
+          <Route path="completed" />
         </Route>
       </Router>
     );
