@@ -1,0 +1,14 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "isComplete": true,
+      "label": "Be awesome"
+    },
+    {
+      "id": 2,
+      "isComplete": false,
+      "label": "Rule the web"
+    }
+  ]
+}
