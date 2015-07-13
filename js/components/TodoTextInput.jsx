@@ -31,7 +31,8 @@ export default class TodoTextInput extends Component {
 
   handleChange(e) {
     this.setState({
-      value: e.target.value
+      // NOTE: `e.target` broken in 0.14.0-beta1, using `e.nativeEvent.target`
+      value: e.nativeEvent.target.value
     });
   }
 

@@ -1,3 +1,5 @@
+import 'whatwg-fetch';
+
 import * as types from '../constants/ActionTypes';
 
 const SERVER_URL = 'http://localhost:9090';

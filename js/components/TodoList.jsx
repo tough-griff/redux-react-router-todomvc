@@ -19,7 +19,8 @@ export default class TodoList extends Component {
   }
 
   handleToggle(e) {
-    this.props.actions.markAllTodos(e.target.checked);
+    // NOTE: `e.target` broken in 0.14.0-beta1, using `e.nativeEvent.target`
+    this.props.actions.markAllTodos(e.nativeEvent.target.checked);
   }
 
   renderFooter(completeCount) {

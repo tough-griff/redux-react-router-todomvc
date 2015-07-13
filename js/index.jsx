@@ -1,8 +1,6 @@
-import $ from 'jquery';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import App from './containers/App';
 
-$(document).ready(() => {
-  React.render(<App />, $('.todoapp')[0]);
-});
+ReactDOM.render(<App />, document.getElementById('app'));
