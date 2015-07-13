@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import { createRedux } from 'redux';
-import { Provider } from 'redux/react';
+import { provide } from 'react-redux';
+import Router, { Redirect, Route } from 'react-router';
+import { history } from 'react-router/lib/BrowserHistory';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import thunk from 'redux-thunk';
 
-import { Root } from '../routers';
-import * as stores from '../stores/';
 
+import { TodoApp } from '../components';
+import * as reducers from '../reducers';
+
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const reducer = combineReducers(reducers);
+const store = createStoreWithMiddleware(reducer);
+
+@provide(store)
 export default class App extends Component {
   render() {
-    const redux = createRedux(stores);
-
     return (
-      <Provider redux={redux}>
-        {() => <Root />}
-      </Provider>
+      <Router history={history}>
+        <Route path="todos" component={TodoApp}>
+          <Route path="all" />
+          <Route path="active" />
+          <Route path="completed" />
+        </Route>
+        <Redirect from="/" to="/todos/all" />
+      </Router>
     );
   }
 }
