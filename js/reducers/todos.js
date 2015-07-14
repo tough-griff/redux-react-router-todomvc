@@ -1,9 +1,9 @@
 import camelCase from 'camel-case';
 
 const ACTION_HANDLERS = {
-  addTodo(state, action) {
+  addTodo(state, payload) {
     return {
-      todoList: [...state.todoList, action.todo]
+      todoList: [...state.todoList, payload.todo]
     };
   },
 
@@ -13,41 +13,41 @@ const ACTION_HANDLERS = {
     };
   },
 
-  deleteTodo(state, action) {
+  deleteTodo(state, payload) {
     return {
-      todoList: state.todoList.filter(todo => todo.id !== action.id)
+      todoList: state.todoList.filter(todo => todo.id !== payload.id)
     };
   },
 
-  editTodo(state, action) {
+  editTodo(state, payload) {
     return {
       todoList: state.todoList.map(todo => (
-        todo.id === action.todo.id
-          ? action.todo : todo
+        todo.id === payload.todo.id
+          ? payload.todo : todo
       ))
     };
   },
 
-  fetchAllTodos(state, action) {
+  fetchAllTodos(state, payload) {
     return {
-      todoList: action.todos
+      todoList: payload.todos
     };
   },
 
-  markAllTodos(state, action) {
+  markAllTodos(state, payload) {
     return {
       todoList: state.todoList.map(todo => ({
         ...todo,
-        isComplete: action.checked
+        isComplete: payload.checked
       }))
     };
   },
 
-  markTodo(state, action) {
+  markTodo(state, payload) {
     return {
       todoList: state.todoList.map(todo => (
-        todo.id === action.todo.id
-          ? action.todo : todo
+        todo.id === payload.todo.id
+          ? payload.todo : todo
       ))
     };
   }
@@ -58,12 +58,13 @@ const initialState = {
 };
 
 export default function todos(state = initialState, action) {
-  const handler = ACTION_HANDLERS[camelCase(action.type)];
+  const { type, payload } = action;
+  const handler = ACTION_HANDLERS[camelCase(type)];
 
   if (!handler) return state;
 
   return {
     ...state,
-    ...handler(state, action)
+    ...handler(state, payload)
   };
 }

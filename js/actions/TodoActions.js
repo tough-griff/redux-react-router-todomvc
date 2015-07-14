@@ -20,7 +20,12 @@ export function addTodo(label) {
     .then(res => res.json())
     .then(todo => dispatch({
       type: types.ADD_TODO,
-      todo
+      payload: { todo }
+    }))
+    .catch(() => dispatch({
+      type: types.ADD_TODO,
+      payload: new Error(),
+      error: true
     }));
   };
 }
@@ -39,7 +44,12 @@ export function deleteTodo(id) {
     })
     .then(() => dispatch({
       type: types.DELETE_TODO,
-      id
+      payload: { id }
+    }))
+    .catch(() => dispatch({
+      type: types.DELETE_TODO,
+      payload: new Error(),
+      error: true
     }));
   };
 }
@@ -57,7 +67,12 @@ export function editTodo(id, label) {
     .then(res => res.json())
     .then(todo => dispatch({
       type: types.EDIT_TODO,
-      todo
+      payload: { todo }
+    }))
+    .catch(() => dispatch({
+      type: types.EDIT_TODO,
+      payload: new Error(),
+      error: true
     }));
   };
 }
@@ -70,7 +85,12 @@ export function fetchAllTodos() {
     .then(res => res.json())
     .then(todos => dispatch({
       type: types.FETCH_ALL_TODOS,
-      todos
+      payload: { todos }
+    }))
+    .catch(() => dispatch({
+      type: types.FETCH_ALL_TODOS,
+      payload: new Error(),
+      error: true
     }));
   };
 }
@@ -87,8 +107,13 @@ export function markTodo(id, isComplete) {
     })
     .then(res => res.json())
     .then(todo => dispatch({
-      type: types.EDIT_TODO,
-      todo
+      type: types.MARK_TODO,
+      payload: { todo }
+    }))
+    .catch(() => dispatch({
+      type: types.MARK_TODO,
+      payload: new Error(),
+      error: true
     }));
   };
 }
@@ -97,6 +122,6 @@ export function markTodo(id, isComplete) {
 export function markAllTodos(checked) {
   return {
     type: types.MARK_ALL_TODOS,
-    checked
+    payload: { checked }
   };
 }
