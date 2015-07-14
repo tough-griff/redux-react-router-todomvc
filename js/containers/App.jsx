@@ -5,7 +5,6 @@ import { history } from 'react-router/lib/BrowserHistory';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-
 import { TodoApp } from '../components';
 import * as reducers from '../reducers';
 

@@ -20,6 +20,7 @@ export default class TodoList extends Component {
     todos: PropTypes.arrayOf(PropTypes.shape(todoShape)).isRequired
   }
 
+  // NOTE: should this be moved somewhere else?
   componentDidMount() {
     this.props.actions.fetchAllTodos();
   }

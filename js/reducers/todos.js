@@ -1,34 +1,69 @@
-import * as types from '../constants/ActionTypes';
+import camelCase from 'camel-case';
 
-export default function todos(state = [], action) {
-  switch (action.type) {
-    case types.ADD_TODO:
-      return [...state, action.todo];
+const ACTION_HANDLERS = {
+  addTodo(state, action) {
+    return {
+      todoList: [...state.todoList, action.todo]
+    };
+  },
 
-    case types.CLEAR_COMPLETE_TODOS:
-      return state.filter(todo => !todo.isComplete);
+  clearCompleteTodos(state) {
+    return {
+      todoList: state.todoList.filter(todo => !todo.isComplete)
+    };
+  },
 
-    case types.DELETE_TODO:
-      return state.filter(todo => todo.id !== action.id);
+  deleteTodo(state, action) {
+    return {
+      todoList: state.todoList.filter(todo => todo.id !== action.id)
+    };
+  },
 
-    case types.EDIT_TODO:
-    case types.MARK_TODO:
-      return state.map(todo => (
+  editTodo(state, action) {
+    return {
+      todoList: state.todoList.map(todo => (
         todo.id === action.todo.id
-          ? action.todo
-          : todo
-      ));
+          ? action.todo : todo
+      ))
+    };
+  },
 
-    case types.FETCH_ALL_TODOS:
-      return action.todos;
+  fetchAllTodos(state, action) {
+    return {
+      todoList: action.todos
+    };
+  },
 
-    case types.MARK_ALL_TODOS:
-      return state.map(todo => ({
+  markAllTodos(state, action) {
+    return {
+      todoList: state.todoList.map(todo => ({
         ...todo,
         isComplete: action.checked
-      }));
+      }))
+    };
+  },
 
-    default:
-      return state;
+  markTodo(state, action) {
+    return {
+      todoList: state.todoList.map(todo => (
+        todo.id === action.todo.id
+          ? action.todo : todo
+      ))
+    };
   }
+};
+
+const initialState = {
+  todoList: []
+};
+
+export default function todos(state = initialState, action) {
+  const handler = ACTION_HANDLERS[camelCase(action.type)];
+
+  if (!handler) return state;
+
+  return {
+    ...state,
+    ...handler(state, action)
+  };
 }

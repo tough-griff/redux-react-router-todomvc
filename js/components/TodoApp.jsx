@@ -14,7 +14,7 @@ import * as TodoActions from '../actions/TodoActions';
  * @see todos
  */
 @connect(state => ({
-  todos: state.todos
+  todos: state.todos.todoList
 }))
 export default class TodoApp extends Component {
   static propTypes = {
