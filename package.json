@@ -1,11 +1,10 @@
 {
-  "name": "alt-react-demo",
-  "version": "0.1.0",
-  "description": "react, alt, & react router practice",
-  "repository": "tough-griff/alt-react-demo",
+  "name": "redux-react-router-todomvc",
+  "version": "1.0.0",
+  "description": "An implementation of TodoMVC using React, Redux, React-Router, and more!",
+  "repository": "tough-griff/redux-react-router-todomvc",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --display-reasons --display-chunks --progress --colors",
     "lint": "eslint js/ --ext .js --ext .jsx",
     "start": "node server.js"
   },

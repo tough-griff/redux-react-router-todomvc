@@ -10,7 +10,8 @@ var server = new WebpackDevServer(webpack(config), {
   hot: true,
   historyApiFallback: true,
   stats: { colors: true }
-}).listen(8080, 'localhost', function(err) {
+})
+server.listen(8080, 'localhost', function(err) {
   if (err) console.log(err);
 
   console.log('Listening at localhost:8080');
@@ -19,7 +20,7 @@ var server = new WebpackDevServer(webpack(config), {
 var dbServer = jsonServer.create();
 dbServer.use(jsonServer.defaults);
 dbServer.use(jsonServer.router('db.json'));
-dbServer.listen(9090, 'localhost', function(err, res) {
+dbServer.listen(9090, 'localhost', function(err) {
   if (err) console.log(err);
 
   console.log('DB Server listening at localhost:9090');
