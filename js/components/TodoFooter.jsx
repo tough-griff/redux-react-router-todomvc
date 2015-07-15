@@ -32,7 +32,7 @@ export default class TodoFooter extends Component {
   renderTodoCount() {
     const { incompleteCount } = this.props;
     const incompleteWord = incompleteCount || 'No';
-    const itemWord = incompleteCount === 1 ? 'task' : 'tasks';
+    const itemWord = (incompleteCount === 1) ? 'task' : 'tasks';
 
     return (
       <span className="todo-count">

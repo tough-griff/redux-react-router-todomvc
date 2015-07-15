@@ -74,7 +74,7 @@ export default class TodoList extends Component {
   render() {
     const { todos } = this.props;
     const completeCount = todos.reduce((count, todo) => (
-      todo.isComplete ? count + 1 : count
+      (todo.isComplete) ? count + 1 : count
     ), 0);
 
     return (
