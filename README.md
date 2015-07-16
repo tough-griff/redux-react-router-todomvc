@@ -1,6 +1,7 @@
 # React/Reflux Demo
 Using:
 - [fetch](https://github.com/github/fetch)
+- [Immutable.js](https://github.com/facebook/immutable-js/)
 - [json-server](https://github.com/typicode/json-server)
 - [react-router](https://github.com/rackt/react-router)
 - [React](https://github.com/facebook/react)
