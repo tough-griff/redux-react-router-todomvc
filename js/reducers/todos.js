@@ -1,66 +1,59 @@
+import Immutable, { List, Map } from 'immutable';
 import camelCase from 'camel-case';
 
 const ACTIONS_MAP = {
   addTodo(state, payload) {
-    return {
-      ...state,
-      todoList: [...state.todoList, payload.todo]
-    };
+    return state.update('todoList', todoList => {
+      return todoList.push(Immutable.fromJS(payload.todo));
+    });
   },
 
   clearCompleteTodos(state) {
-    return {
-      ...state,
-      todoList: state.todoList.filter(todo => !todo.isComplete)
-    };
+    return state.update('todoList', todoList => {
+      return todoList.filter(todo => !todo.get('isComplete'));
+    });
   },
 
   deleteTodo(state, payload) {
-    return {
-      ...state,
-      todoList: state.todoList.filter(todo => todo.id !== payload.id)
-    };
+    return state.update('todoList', todoList => {
+      return todoList.filter(todo => todo.get('id') !== payload.id);
+    });
   },
 
   editTodo(state, payload) {
-    return {
-      ...state,
-      todoList: state.todoList.map(todo => (
-        (todo.id === payload.todo.id) ? payload.todo : todo
-      ))
-    };
+    return state.update('todoList', todoList => {
+      return todoList.map(todo => {
+        return (todo.get('id') === payload.id)
+          ? todo.set('label', payload.label)
+          : todo;
+      });
+    });
   },
 
   fetchAllTodos(state, payload) {
-    return {
-      ...state,
-      todoList: payload.todos
-    };
+    return state.set('todoList', Immutable.fromJS(payload.todos));
   },
 
   markAllTodos(state, payload) {
-    return {
-      ...state,
-      todoList: state.todoList.map(todo => ({
-        ...todo,
-        isComplete: payload.isComplete
-      }))
-    };
+    return state.update('todoList', todoList => {
+      return todoList.map(todo => todo.set('isComplete', payload.isComplete));
+    });
   },
 
   markTodo(state, payload) {
-    return {
-      ...state,
-      todoList: state.todoList.map(todo => (
-        (todo.id === payload.todo.id) ? payload.todo : todo
-      ))
-    };
+    return state.update('todoList', todoList => {
+      return todoList.map(todo => {
+        return (todo.get('id') === payload.id)
+          ? todo.set('isComplete', payload.isComplete)
+          : todo;
+      });
+    });
   }
 };
 
-const initialState = {
-  todoList: []
-};
+const initialState = Map({
+  todoList: List()
+});
 
 export default function todos(state = initialState, action) {
   const { type, payload } = action;

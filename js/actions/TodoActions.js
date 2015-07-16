@@ -67,7 +67,10 @@ export function editTodo(id, label) {
     .then(res => res.json())
     .then(todo => dispatch({
       type: types.EDIT_TODO,
-      payload: { todo }
+      payload: {
+        id: todo.id,
+        label: todo.label
+      }
     }))
     .catch(() => dispatch({
       type: types.EDIT_TODO,
@@ -108,7 +111,10 @@ export function markTodo(id, isComplete) {
     .then(res => res.json())
     .then(todo => dispatch({
       type: types.MARK_TODO,
-      payload: { todo }
+      payload: {
+        id: todo.id,
+        isComplete: todo.isComplete
+      }
     }))
     .catch(() => dispatch({
       type: types.MARK_TODO,

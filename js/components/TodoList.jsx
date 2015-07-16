@@ -49,15 +49,17 @@ export default class TodoList extends Component {
   renderListItems() {
     const { actions, filter, todos } = this.props;
 
-    return todos.filter(FILTERS[filter]).map(todo => (
-      <TodoItem
-        key={todo.id}
-        deleteTodo={actions.deleteTodo}
-        editTodo={actions.editTodo}
-        markTodo={actions.markTodo}
-        todo={todo}
-      />
-    ));
+    return todos.filter(FILTERS[filter]).map(todo => {
+      return (
+        <TodoItem
+          key={todo.id}
+          deleteTodo={actions.deleteTodo}
+          editTodo={actions.editTodo}
+          markTodo={actions.markTodo}
+          todo={todo}
+        />
+      );
+    });
   }
 
   renderToggle(completeCount) {
@@ -73,9 +75,9 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = todos.reduce((count, todo) => (
-      (todo.isComplete) ? count + 1 : count
-    ), 0);
+    const completeCount = todos.reduce((count, todo) => {
+      return (todo.isComplete) ? count + 1 : count;
+    }, 0);
 
     return (
       <section className="main">
