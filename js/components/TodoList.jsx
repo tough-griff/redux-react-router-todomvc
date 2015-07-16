@@ -25,7 +25,7 @@ export default class TodoList extends Component {
     this.props.actions.fetchAllTodos();
   }
 
-  handleToggle(e) {
+  onToggle(e) {
     // NOTE: `e.target` broken in 0.14.0-beta1, using `e.nativeEvent.target`
     this.props.actions.markAllTodos(e.nativeEvent.target.checked);
   }
@@ -65,7 +65,7 @@ export default class TodoList extends Component {
       <input
         checked={completeCount === this.props.todos.length}
         className="toggle-all"
-        onChange={::this.handleToggle}
+        onChange={::this.onToggle}
         type="checkbox"
       />
     );

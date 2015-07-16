@@ -22,21 +22,21 @@ export default class TodoTextInput extends Component {
   }
 
   // FIXME: properly register blur events on the input field.
-  handleBlur() {
+  onBlur() {
     this.props.onSave(this.state.value.trim());
     this.setState({
       value: ''
     });
   }
 
-  handleChange(e) {
+  onChange(e) {
     this.setState({
       // NOTE: `e.target` broken in 0.14.0-beta1, using `e.nativeEvent.target`
       value: e.nativeEvent.target.value
     });
   }
 
-  handleKeyDown(e) {
+  onKeyDown(e) {
     if (e.keyCode !== ENTER_KEY_CODE) return;
 
     this.props.onSave(this.state.value.trim());
@@ -53,8 +53,8 @@ export default class TodoTextInput extends Component {
       <input
         autoFocus={true}
         className={className}
-        onChange={::this.handleChange}
-        onKeyDown={::this.handleKeyDown}
+        onChange={::this.onChange}
+        onKeyDown={::this.onKeyDown}
         placeholder={placeholder}
         type="text"
         value={value}

@@ -23,17 +23,17 @@ export default class TodoItem extends Component {
     };
   }
 
-  handleDestroy() {
+  onDestroy() {
     this.props.deleteTodo(this.props.todo.id);
   }
 
-  handleEdit() {
+  onEdit() {
     this.setState({
       isEditing: true
     });
   }
 
-  handleSave(label) {
+  onSave(label) {
     const { id } = this.props.todo;
 
     if (label.length) {
@@ -47,7 +47,7 @@ export default class TodoItem extends Component {
     });
   }
 
-  handleToggle() {
+  onToggle() {
     const { todo } = this.props;
 
     this.props.markTodo(todo.id, !todo.isComplete);
@@ -59,7 +59,7 @@ export default class TodoItem extends Component {
     return (
       <TodoTextInput
         className="edit"
-        onSave={::this.handleSave}
+        onSave={::this.onSave}
         value={this.props.todo.label}
       />
     );
@@ -79,13 +79,13 @@ export default class TodoItem extends Component {
           <input
             checked={todo.isComplete}
             className="toggle"
-            onChange={::this.handleToggle}
+            onChange={::this.onToggle}
             type="checkbox"
           />
-          <label onDoubleClick={::this.handleEdit}>
+          <label onDoubleClick={::this.onEdit}>
             {todo.label}
           </label>
-          <button className="destroy" onClick={::this.handleDestroy} />
+          <button className="destroy" onClick={::this.onDestroy} />
         </div>
         {this.renderInput()}
       </li>
