@@ -34,8 +34,8 @@ describe('todos reducer', () => {
 
     it('appends a new todo', () => {
       const subject = todos(state, action).get('todoList');
-      expect(subject.size).to.be(3);
-      expect(subject.last().get('label')).to.be('New');
+      expect(subject.size).to.equal(3);
+      expect(subject.last().get('label')).to.equal('New');
     });
   });
 
@@ -46,7 +46,7 @@ describe('todos reducer', () => {
 
     it('removes todos where isComplete = true', () => {
       const subject = todos(state, action).get('todoList');
-      expect(subject.size).to.be(1);
+      expect(subject.size).to.equal(1);
       expect(subject.every(todo => !todo.get('isComplete'))).to.be(true);
     });
   });
@@ -61,7 +61,7 @@ describe('todos reducer', () => {
 
     it('removes the correct todo', () => {
       const subject = todos(state, action).get('todoList');
-      expect(subject.size).to.be(1);
+      expect(subject.size).to.equal(1);
       expect(subject.every(todo => todo.get('id') !== 2)).to.be(true);
     });
   });
@@ -80,7 +80,7 @@ describe('todos reducer', () => {
         .get('todoList')
         .find(todo => todo.get('id') === 2);
 
-      expect(subject.get('label')).to.be('New label');
+      expect(subject.get('label')).to.equal('New label');
     });
   });
 
@@ -112,7 +112,7 @@ describe('todos reducer', () => {
 
     it('sets todoList to the new fetched todos', () => {
       const subject = todos(state, action).get('todoList');
-      expect(subject.size).to.be(4);
+      expect(subject.size).to.equal(4);
       expect(subject.every(todo => todo.get('isComplete'))).to.be(true);
     });
   });
