@@ -15,12 +15,8 @@ export default class TodoItem extends Component {
     todo: PropTypes.shape(todoShape).isRequired
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isEditing: false
-    };
+  state = {
+    isEditing: false
   }
 
   onDestroy() {

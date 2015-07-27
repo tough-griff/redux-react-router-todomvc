@@ -13,12 +13,8 @@ export default class TodoTextInput extends Component {
     value: PropTypes.string
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: this.props.value || ''
-    };
+  state = {
+    value: this.props.value || ''
   }
 
   // FIXME: properly register blur events on the input field.
