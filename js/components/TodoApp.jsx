@@ -8,14 +8,19 @@ import todoShape from './propShapes/todoShape';
 import * as TodoActions from '../actions/TodoActions';
 
 /**
+ * Parses the Redux store's state for the appropriate props.
+ */
+function select(state) {
+  return { todos: state.todos.get('todoList').toJS() };
+}
+
+/**
  * Top-level application component. Connects to the Redux `Provider` stores,
  * passing their state through as props.
  * @see App
  * @see todos
  */
-@connect(state => ({
-  todos: state.todos.get('todoList').toJS()
-}))
+@connect(select)
 export default class TodoApp extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
