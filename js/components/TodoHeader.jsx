@@ -11,7 +11,7 @@ export default class TodoHeader extends Component {
     addTodo: PropTypes.func.isRequired
   }
 
-  onSave(label) {
+  onSave = (label) => {
     if (!label.length) return;
 
     this.props.addTodo(label);
@@ -23,7 +23,7 @@ export default class TodoHeader extends Component {
         <h1>Todos</h1>
         <TodoTextInput
           className="new-todo"
-          onSave={::this.onSave}
+          onSave={this.onSave}
           placeholder="What needs to be done?"
         />
       </header>

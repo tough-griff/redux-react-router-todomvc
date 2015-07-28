@@ -12,7 +12,7 @@ export default class TodoFooter extends Component {
     incompleteCount: PropTypes.number.isRequired
   }
 
-  onRemoveCompleted() {
+  onRemoveCompleted = () => {
     this.props.clearCompleteTodos();
   }
 
@@ -22,7 +22,7 @@ export default class TodoFooter extends Component {
     return (
       <button
         className="clear-completed"
-        onClick={::this.onRemoveCompleted}
+        onClick={this.onRemoveCompleted}
       >
         Clear complete
       </button>

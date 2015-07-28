@@ -1,10 +1,16 @@
-import Immutable, { List, Map } from 'immutable';
+import { List, Map, Record } from 'immutable';
 import camelCase from 'camel-case';
+
+const Todo = new Record({
+  id: 0,
+  isComplete: false,
+  label: 'new todo'
+});
 
 const ACTIONS_MAP = {
   addTodo(state, payload) {
     return state.update('todoList', todoList => {
-      return todoList.push(Immutable.fromJS(payload.todo));
+      return todoList.push(new Todo(payload.todo));
     });
   },
 
@@ -31,7 +37,8 @@ const ACTIONS_MAP = {
   },
 
   fetchAllTodos(state, payload) {
-    return state.set('todoList', Immutable.fromJS(payload.todos));
+    const todoRecords = payload.todos.map(todo => new Todo(todo));
+    return state.set('todoList', new List(todoRecords));
   },
 
   markAllTodos(state, payload) {
@@ -51,8 +58,8 @@ const ACTIONS_MAP = {
   }
 };
 
-const initialState = Map({
-  todoList: List()
+const initialState = new Map({
+  todoList: new List()
 });
 
 export default function todos(state = initialState, action) {

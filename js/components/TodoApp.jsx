@@ -1,17 +1,17 @@
+import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import TodoHeader from './TodoHeader';
 import TodoList from './TodoList';
-import todoShape from './propShapes/todoShape';
 import * as TodoActions from '../actions/TodoActions';
 
 /**
  * Parses the Redux store's state for the appropriate props.
  */
 function select(state) {
-  return { todos: state.todos.get('todoList').toJS() };
+  return { todos: state.todos.get('todoList') };
 }
 
 /**
@@ -24,7 +24,7 @@ function select(state) {
 export default class TodoApp extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    todos: PropTypes.arrayOf(PropTypes.shape(todoShape)).isRequired,
+    todos: PropTypes.instanceOf(List).isRequired,
     location: PropTypes.object.isRequired
   }
 

@@ -14,7 +14,7 @@ export function addTodo(label) {
       },
       body: JSON.stringify({
         isComplete: false,
-        label: label
+        label
       })
     })
     .then(res => res.json())

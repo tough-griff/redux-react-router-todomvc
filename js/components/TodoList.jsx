@@ -1,8 +1,8 @@
+import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
 import TodoFooter from './TodoFooter';
 import TodoItem from './TodoItem';
-import todoShape from './propShapes/todoShape';
 
 const FILTERS = {
   all: () => true,
@@ -17,7 +17,7 @@ export default class TodoList extends Component {
   static propTypes = {
     actions: PropTypes.objectOf(PropTypes.func.isRequired).isRequired,
     filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
-    todos: PropTypes.arrayOf(PropTypes.shape(todoShape)).isRequired
+    todos: PropTypes.instanceOf(List).isRequired
   }
 
   // NOTE: should this be moved somewhere else?
@@ -25,17 +25,18 @@ export default class TodoList extends Component {
     this.props.actions.fetchAllTodos();
   }
 
-  onToggle(e) {
+  onToggle = (e) => {
     // NOTE: `e.target` broken in 0.14.0-beta1, using `e.nativeEvent.target`
     this.props.actions.markAllTodos(e.nativeEvent.target.checked);
   }
 
   renderFooter(completeCount) {
     const { actions, todos } = this.props;
+    const { size } = todos;
 
-    if (!todos.length) return null;
+    if (!size) return null;
 
-    const incompleteCount = todos.length - completeCount;
+    const incompleteCount = size - completeCount;
 
     return (
       <TodoFooter
@@ -65,9 +66,9 @@ export default class TodoList extends Component {
   renderToggle(completeCount) {
     return (
       <input
-        checked={completeCount === this.props.todos.length}
+        checked={completeCount === this.props.todos.size}
         className="toggle-all"
-        onChange={::this.onToggle}
+        onChange={this.onToggle}
         type="checkbox"
       />
     );

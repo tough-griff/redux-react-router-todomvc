@@ -1,8 +1,8 @@
+import { Record } from 'immutable';
 import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 
 import TodoTextInput from './TodoTextInput';
-import todoShape from './propShapes/todoShape';
 
 /**
  * Represents a single todo item in a todo list.
@@ -12,30 +12,33 @@ export default class TodoItem extends Component {
     deleteTodo: PropTypes.func.isRequired,
     editTodo: PropTypes.func.isRequired,
     markTodo: PropTypes.func.isRequired,
-    todo: PropTypes.shape(todoShape).isRequired
+    todo: PropTypes.instanceOf(Record).isRequired
   }
 
   state = {
     isEditing: false
   }
 
-  onDestroy() {
-    this.props.deleteTodo(this.props.todo.id);
+  onDestroy = () => {
+    const { deleteTodo, todo } = this.props;
+
+    deleteTodo(todo.id);
   }
 
-  onEdit() {
+  onEdit = () => {
     this.setState({
       isEditing: true
     });
   }
 
-  onSave(label) {
-    const { id } = this.props.todo;
+  onSave = (label) => {
+    const { deleteTodo, editTodo, todo } = this.props;
+    const { id } = todo;
 
     if (label.length) {
-      this.props.editTodo(id, label);
+      editTodo(id, label);
     } else {
-      this.props.deleteTodo(id);
+      deleteTodo(id);
     }
 
     this.setState({
@@ -43,10 +46,11 @@ export default class TodoItem extends Component {
     });
   }
 
-  onToggle() {
-    const { todo } = this.props;
+  onToggle = () => {
+    const { markTodo, todo } = this.props;
+    const { id, isComplete } = todo;
 
-    this.props.markTodo(todo.id, !todo.isComplete);
+    markTodo(id, !isComplete);
   }
 
   renderInput() {
@@ -55,17 +59,17 @@ export default class TodoItem extends Component {
     return (
       <TodoTextInput
         className="edit"
-        onSave={::this.onSave}
+        onSave={this.onSave}
         value={this.props.todo.label}
       />
     );
   }
 
   render() {
-    const { todo } = this.props;
+    const { isComplete, label } = this.props.todo;
 
     const classes = classnames({
-      completed: todo.isComplete,
+      completed: isComplete,
       editing: this.state.isEditing
     });
 
@@ -73,15 +77,15 @@ export default class TodoItem extends Component {
       <li className={classes}>
         <div className="view">
           <input
-            checked={todo.isComplete}
+            checked={isComplete}
             className="toggle"
-            onChange={::this.onToggle}
+            onChange={this.onToggle}
             type="checkbox"
           />
-          <label onDoubleClick={::this.onEdit}>
-            {todo.label}
+          <label onDoubleClick={this.onEdit}>
+            {label}
           </label>
-          <button className="destroy" onClick={::this.onDestroy} />
+          <button className="destroy" onClick={this.onDestroy} />
         </div>
         {this.renderInput()}
       </li>
