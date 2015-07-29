@@ -7,12 +7,14 @@ describe('todos reducer', () => {
   const state = Immutable.fromJS({
     todoList: [{
       id: 1,
-      label: 'Hello',
-      isComplete: true
+      index: 1,
+      isComplete: true,
+      label: 'Hello'
     }, {
       id: 2,
-      label: 'World',
-      isComplete: false
+      index: 2,
+      isComplete: false,
+      label: 'World'
     }]
   });
 
@@ -147,6 +149,23 @@ describe('todos reducer', () => {
         .find(todo => todo.get('id') === 2);
 
       expect(subject.get('isComplete')).to.be(true);
+    });
+  });
+
+  describe('moveTodo handler', () => {
+    const action = {
+      type: 'MOVE_TODO',
+      payload: {
+        at: 2,
+        to: 1
+      }
+    };
+
+    it('modifies the todo list indices correctly', () => {
+      const subject = todos(state, action).get('todoList');
+
+      expect(subject.first().get('index')).to.equal(2);
+      expect(subject.last().get('index')).to.equal(1);
     });
   });
 });

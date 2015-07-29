@@ -1,0 +1,12 @@
+.todo-list li {
+  background: #fff;
+}
+
+.todo-list li.dragging {
+  opacity: 0.25;
+}
+
+.todo-list li.dragging-over {
+  border-top: 2px solid #5dc2af;
+  margin-top: -2px;
+}

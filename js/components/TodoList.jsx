@@ -50,19 +50,22 @@ export default class TodoList extends Component {
   }
 
   renderListItems() {
+    // FIXME?
     const { actions, filter, todos } = this.props;
+    const { deleteTodo, editTodo, markTodo, moveTodo } = actions;
 
-    return Seq(todos).filter(FILTERS[filter]).map(todo => {
-      return (
+    return Seq(todos).filter(FILTERS[filter])
+      .sortBy(todo => todo.index)
+      .map(todo => (
         <TodoItem
-          key={todo.id}
-          deleteTodo={actions.deleteTodo}
-          editTodo={actions.editTodo}
-          markTodo={actions.markTodo}
+          key={`todo-${todo.id}`}
+          deleteTodo={deleteTodo}
+          editTodo={editTodo}
+          markTodo={markTodo}
+          moveTodo={moveTodo}
           todo={todo}
         />
-      );
-    }).toArray();
+      )).toArray();
   }
 
   renderToggle(completeCount) {

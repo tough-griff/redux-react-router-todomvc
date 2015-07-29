@@ -1,17 +1,54 @@
 import { Record } from 'immutable';
 import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
+import { DragSource, DropTarget } from 'react-dnd';
 
 import TodoTextInput from './TodoTextInput';
+import * as Items from '../constants/Items';
+
+const todoSource = {
+  beginDrag(props) {
+    return { index: props.todo.index };
+  }
+};
+
+const todoTarget = {
+  canDrop(props, monitor) {
+    const { index } = props.todo;
+    const draggedIndex = monitor.getItem().index;
+
+    return draggedIndex !== index && draggedIndex !== index - 1;
+  },
+
+  drop(props, monitor) {
+    const { moveTodo, todo } = props;
+    moveTodo(monitor.getItem().index, todo.index);
+  }
+};
 
 /**
  * Represents a single todo item in a todo list.
  */
+@DropTarget(Items.TODO, todoTarget, (connect, monitor) => ({
+  canDrop: monitor.canDrop(),
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver()
+}))
+@DragSource(Items.TODO, todoSource, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))
 export default class TodoItem extends Component {
   static propTypes = {
+    canDrop: PropTypes.bool.isRequired,
+    connectDragSource: PropTypes.func.isRequired,
+    connectDropTarget: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
     editTodo: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired,
+    isOver: PropTypes.bool.isRequired,
     markTodo: PropTypes.func.isRequired,
+    moveTodo: PropTypes.func.isRequired,
     todo: PropTypes.instanceOf(Record).isRequired
   }
 
@@ -73,14 +110,18 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    const { isComplete, label } = this.props.todo;
+    // FIXME
+    const { canDrop, connectDragSource, connectDropTarget, isDragging, isOver, todo } = this.props;
+    const { isComplete, label } = todo;
 
     const classes = classnames({
       completed: isComplete,
+      dragging: isDragging,
+      'dragging-over': isOver && canDrop,
       editing: this.state.isEditing
     });
 
-    return (
+    return connectDragSource(connectDropTarget(
       <li className={classes}>
         <div className="view">
           <input
@@ -96,6 +137,6 @@ export default class TodoItem extends Component {
         </div>
         {this.renderInput()}
       </li>
-    );
+    ));
   }
 }

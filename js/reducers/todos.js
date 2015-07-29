@@ -3,15 +3,16 @@ import camelCase from 'camel-case';
 
 const Todo = Record({
   id: 0,
+  index: 0,
   isComplete: false,
   label: 'new todo'
 });
 
 const ACTIONS_MAP = {
   addTodo(state, payload) {
-    const todo = Todo(payload.todo);
+    const { todo } = payload;
     return state.update('todoList', todoList => {
-      return todoList.push(todo);
+      return todoList.push(Todo({ index: todo.id, ...todo }));
     });
   },
 
@@ -38,7 +39,7 @@ const ACTIONS_MAP = {
   },
 
   fetchAllTodos(state, payload) {
-    const todoList = List(payload.todos).map(todo => Todo(todo));
+    const todoList = List(payload.todos).map(todo => Todo({ index: todo.id, ...todo }));
     return state.set('todoList', todoList);
   },
 
@@ -54,6 +55,23 @@ const ACTIONS_MAP = {
         return (todo.get('id') === payload.id)
           ? todo.set('isComplete', payload.isComplete)
           : todo;
+      });
+    });
+  },
+
+  moveTodo(state, payload) {
+    const { at, to } = payload;
+    return state.update('todoList', todoList => {
+      return todoList.map(todo => {
+        let newTodo = todo;
+
+        if (todo.get('index') === at) {
+          newTodo = todo.set('index', to);
+        } else if (todo.get('index') >= to) {
+          newTodo = todo.update('index', index => index + 1);
+        }
+
+        return newTodo;
       });
     });
   }

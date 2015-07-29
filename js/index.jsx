@@ -1,4 +1,4 @@
-import 'babel/polyfill';
+import 'babel-core/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

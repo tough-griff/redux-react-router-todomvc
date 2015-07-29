@@ -1,6 +1,6 @@
 import 'whatwg-fetch';
 
-import * as types from '../constants/ActionTypes';
+import * as Actions from '../constants/Actions';
 
 const SERVER_URL = 'http://localhost:9090';
 
@@ -19,11 +19,11 @@ export function addTodo(label) {
     })
     .then(res => res.json())
     .then(todo => dispatch({
-      type: types.ADD_TODO,
+      type: Actions.ADD_TODO,
       payload: { todo }
     }))
     .catch(() => dispatch({
-      type: types.ADD_TODO,
+      type: Actions.ADD_TODO,
       payload: new Error(),
       error: true
     }));
@@ -33,7 +33,7 @@ export function addTodo(label) {
 // FIXME: this is just a stub--does nothing on the server.
 export function clearCompleteTodos() {
   return {
-    type: types.CLEAR_COMPLETE_TODOS
+    type: Actions.CLEAR_COMPLETE_TODOS
   };
 }
 
@@ -43,11 +43,11 @@ export function deleteTodo(id) {
       method: 'DELETE'
     })
     .then(() => dispatch({
-      type: types.DELETE_TODO,
+      type: Actions.DELETE_TODO,
       payload: { id }
     }))
     .catch(() => dispatch({
-      type: types.DELETE_TODO,
+      type: Actions.DELETE_TODO,
       payload: new Error(),
       error: true
     }));
@@ -66,14 +66,14 @@ export function editTodo(id, label) {
     })
     .then(res => res.json())
     .then(todo => dispatch({
-      type: types.EDIT_TODO,
+      type: Actions.EDIT_TODO,
       payload: {
         id: todo.id,
         label: todo.label
       }
     }))
     .catch(() => dispatch({
-      type: types.EDIT_TODO,
+      type: Actions.EDIT_TODO,
       payload: new Error(),
       error: true
     }));
@@ -87,11 +87,11 @@ export function fetchAllTodos() {
     })
     .then(res => res.json())
     .then(todos => dispatch({
-      type: types.FETCH_ALL_TODOS,
+      type: Actions.FETCH_ALL_TODOS,
       payload: { todos }
     }))
     .catch(() => dispatch({
-      type: types.FETCH_ALL_TODOS,
+      type: Actions.FETCH_ALL_TODOS,
       payload: new Error(),
       error: true
     }));
@@ -110,14 +110,14 @@ export function markTodo(id, isComplete) {
     })
     .then(res => res.json())
     .then(todo => dispatch({
-      type: types.MARK_TODO,
+      type: Actions.MARK_TODO,
       payload: {
         id: todo.id,
         isComplete: todo.isComplete
       }
     }))
     .catch(() => dispatch({
-      type: types.MARK_TODO,
+      type: Actions.MARK_TODO,
       payload: new Error(),
       error: true
     }));
@@ -127,7 +127,15 @@ export function markTodo(id, isComplete) {
 // FIXME: this is just a stub--does nothing on the server.
 export function markAllTodos(isComplete) {
   return {
-    type: types.MARK_ALL_TODOS,
+    type: Actions.MARK_ALL_TODOS,
     payload: { isComplete }
+  };
+}
+
+// FIXME: this is just a stub--does nothing on the server.
+export function moveTodo(at, to) {
+  return {
+    type: Actions.MOVE_TODO,
+    payload: { at, to }
   };
 }
