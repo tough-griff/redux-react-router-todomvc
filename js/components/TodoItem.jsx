@@ -20,9 +20,12 @@ export default class TodoItem extends Component {
   }
 
   onDestroy = () => {
+    // FIXME
+    // const { deleteTodo, todo: { id }} = this.props;
     const { deleteTodo, todo } = this.props;
+    const { id } = todo;
 
-    deleteTodo(todo.id);
+    deleteTodo(id);
   }
 
   onEdit = () => {
@@ -32,6 +35,8 @@ export default class TodoItem extends Component {
   }
 
   onSave = (label) => {
+    // FIXME
+    // const { deleteTodo, editTodo, todo: { id }} = this.props;
     const { deleteTodo, editTodo, todo } = this.props;
     const { id } = todo;
 
@@ -47,6 +52,8 @@ export default class TodoItem extends Component {
   }
 
   onToggle = () => {
+    // FIXME
+    // const { markTodo, todo: { id, isComplete }} = this.props;
     const { markTodo, todo } = this.props;
     const { id, isComplete } = todo;
 

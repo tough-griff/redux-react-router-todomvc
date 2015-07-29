@@ -124,7 +124,7 @@ export function markTodo(id, isComplete) {
   };
 }
 
-// FIXME this is just a stub--does nothing on the server.
+// FIXME: this is just a stub--does nothing on the server.
 export function markAllTodos(isComplete) {
   return {
     type: types.MARK_ALL_TODOS,

@@ -1,7 +1,7 @@
 {
   "parser": "babel-eslint",
   "plugins": [
-    "react"
+    "babel", "react"
   ],
   "env": {
     "browser": true,
@@ -62,7 +62,7 @@
     "no-sparse-arrays": 2,
     "no-unreachable": 2,
     "use-isnan": 2,
-    "block-scoped-var": 2,
+    "babel/block-scoped-var": 2,
 
     "consistent-return": 2,
     "curly": [2, "multi-line"],

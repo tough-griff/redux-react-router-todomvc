@@ -1,4 +1,4 @@
-import { List } from 'immutable';
+import { List, Seq } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
 import TodoFooter from './TodoFooter';
@@ -31,6 +31,8 @@ export default class TodoList extends Component {
   }
 
   renderFooter(completeCount) {
+    // FIXME
+    // const { actions, todos: { size }} = this.props;
     const { actions, todos } = this.props;
     const { size } = todos;
 
@@ -50,7 +52,7 @@ export default class TodoList extends Component {
   renderListItems() {
     const { actions, filter, todos } = this.props;
 
-    return todos.filter(FILTERS[filter]).map(todo => {
+    return Seq(todos).filter(FILTERS[filter]).map(todo => {
       return (
         <TodoItem
           key={todo.id}
@@ -60,7 +62,7 @@ export default class TodoList extends Component {
           todo={todo}
         />
       );
-    });
+    }).toArray();
   }
 
   renderToggle(completeCount) {
@@ -76,7 +78,7 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = todos.reduce((count, todo) => {
+    const completeCount = Seq(todos).reduce((count, todo) => {
       return (todo.isComplete) ? count + 1 : count;
     }, 0);
 

@@ -1,7 +1,7 @@
 import { List, Map, Record } from 'immutable';
 import camelCase from 'camel-case';
 
-const Todo = new Record({
+const Todo = Record({
   id: 0,
   isComplete: false,
   label: 'new todo'
@@ -9,8 +9,9 @@ const Todo = new Record({
 
 const ACTIONS_MAP = {
   addTodo(state, payload) {
+    const todo = Todo(payload.todo);
     return state.update('todoList', todoList => {
-      return todoList.push(new Todo(payload.todo));
+      return todoList.push(todo);
     });
   },
 
@@ -37,8 +38,8 @@ const ACTIONS_MAP = {
   },
 
   fetchAllTodos(state, payload) {
-    const todoRecords = payload.todos.map(todo => new Todo(todo));
-    return state.set('todoList', new List(todoRecords));
+    const todoList = List(payload.todos).map(todo => Todo(todo));
+    return state.set('todoList', todoList);
   },
 
   markAllTodos(state, payload) {
@@ -58,8 +59,8 @@ const ACTIONS_MAP = {
   }
 };
 
-const initialState = new Map({
-  todoList: new List()
+const initialState = Map({
+  todoList: List()
 });
 
 export default function todos(state = initialState, action) {
