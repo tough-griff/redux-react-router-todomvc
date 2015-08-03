@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 
 import { TodoTextInput } from '.';
-import Items from '../constants/Items';
+import { Items } from '../constants';
 
 const todoSource = {
   beginDrag(props) {

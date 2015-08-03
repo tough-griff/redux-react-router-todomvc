@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { TodoHeader, TodoList } from '.';
-import TodoActions from '../actions/TodoActions';
+import { TodoActions } from '../actions';
 
 /**
  * Top-level application component. Connects to the Redux `Provider` stores,
