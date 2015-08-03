@@ -3,7 +3,7 @@ import Immutable from 'immutable';
 
 import todos from '../../js/reducers/todos';
 
-describe('todos reducer', () => {
+describe('todos', () => {
   const state = Immutable.fromJS({
     todoList: [{
       id: 1,
@@ -22,7 +22,7 @@ describe('todos reducer', () => {
     expect(todos).to.be.a('function');
   });
 
-  describe('addTodo handler', () => {
+  context('addTodo', () => {
     const action = {
       type: 'ADD_TODO',
       payload: {
@@ -41,7 +41,7 @@ describe('todos reducer', () => {
     });
   });
 
-  describe('clearCompleteTodos handler', () => {
+  context('clearCompleteTodos', () => {
     const action = {
       type: 'CLEAR_COMPLETE_TODOS'
     };
@@ -53,7 +53,7 @@ describe('todos reducer', () => {
     });
   });
 
-  describe('deleteTodo handler', () => {
+  context('deleteTodo', () => {
     const action = {
       type: 'DELETE_TODO',
       payload: {
@@ -68,7 +68,7 @@ describe('todos reducer', () => {
     });
   });
 
-  describe('editTodo handler', () => {
+  context('editTodo', () => {
     const action = {
       type: 'EDIT_TODO',
       payload: {
@@ -87,7 +87,7 @@ describe('todos reducer', () => {
   });
 
 
-  describe('fetchAllTodos handler', () => {
+  context('fetchAllTodos', () => {
     const action = {
       type: 'FETCH_ALL_TODOS',
       payload: {
@@ -119,7 +119,7 @@ describe('todos reducer', () => {
     });
   });
 
-  describe('markAllTodos handler', () => {
+  context('markAllTodos', () => {
     const action = {
       type: 'MARK_ALL_TODOS',
       payload: {
@@ -134,7 +134,7 @@ describe('todos reducer', () => {
     });
   });
 
-  describe('markTodo handler', () => {
+  context('markTodo', () => {
     const action = {
       type: 'MARK_TODO',
       payload: {
@@ -152,7 +152,7 @@ describe('todos reducer', () => {
     });
   });
 
-  describe('moveTodo handler', () => {
+  context('moveTodo', () => {
     const action = {
       type: 'MOVE_TODO',
       payload: {
