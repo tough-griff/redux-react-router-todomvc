@@ -11,6 +11,7 @@ const Todo = Record({
 const ACTIONS_MAP = {
   addTodo(state, payload) {
     const { todo } = payload;
+
     return state.update('todoList', todoList => {
       return todoList.push(Todo({ index: todo.id, ...todo }));
     });
@@ -29,10 +30,12 @@ const ACTIONS_MAP = {
   },
 
   editTodo(state, payload) {
+    const { id, label } = payload;
+
     return state.update('todoList', todoList => {
       return todoList.map(todo => {
-        return (todo.get('id') === payload.id)
-          ? todo.set('label', payload.label)
+        return (todo.get('id') === id)
+          ? todo.set('label', label)
           : todo;
       });
     });
@@ -40,6 +43,7 @@ const ACTIONS_MAP = {
 
   fetchAllTodos(state, payload) {
     const todoList = List(payload.todos).map(todo => Todo({ index: todo.id, ...todo }));
+
     return state.set('todoList', todoList);
   },
 
@@ -50,10 +54,12 @@ const ACTIONS_MAP = {
   },
 
   markTodo(state, payload) {
+    const { id, isComplete } = payload;
+
     return state.update('todoList', todoList => {
       return todoList.map(todo => {
-        return (todo.get('id') === payload.id)
-          ? todo.set('isComplete', payload.isComplete)
+        return (todo.get('id') === id)
+          ? todo.set('isComplete', isComplete)
           : todo;
       });
     });
