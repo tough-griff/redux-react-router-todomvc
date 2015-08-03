@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { provide } from 'react-redux';
-import Router, { Redirect, Route } from 'react-router';
-import { history } from 'react-router/lib/BrowserHistory';
+import { Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-import { TodoApp } from '../components';
+import { TodoRouter } from '../components';
 import * as reducers from '../reducers';
 
 const composedCreateStore = compose(
@@ -15,18 +13,12 @@ const composedCreateStore = compose(
 const reducer = combineReducers(reducers);
 const store = composedCreateStore(reducer);
 
-@provide(store)
 export default class App extends Component {
   render() {
     return (
-      <Router history={history}>
-        <Route path="todos" component={TodoApp}>
-          <Route path="all" />
-          <Route path="active" />
-          <Route path="completed" />
-        </Route>
-        <Redirect from="/" to="/todos/all" />
-      </Router>
+      <Provider store={store}>
+        {() => <TodoRouter />}
+      </Provider>
     );
   }
 }
