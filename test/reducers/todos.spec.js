@@ -1,21 +1,31 @@
 import expect from 'expect.js';
-import Immutable from 'immutable';
+import { List, Map, Record } from 'immutable';
 
 import todos from '../../js/reducers/todos';
 
 describe('todos', () => {
-  const state = Immutable.fromJS({
-    todoList: [{
-      id: 1,
-      index: 1,
-      isComplete: true,
-      label: 'Hello'
-    }, {
-      id: 2,
-      index: 2,
-      isComplete: false,
-      label: 'World'
-    }]
+  const Todo = Record({
+    id: 0,
+    index: 0,
+    isComplete: false,
+    label: 'new todo'
+  });
+
+  const state = Map({
+    todoList: List([
+      Todo({
+        id: 1,
+        index: 1,
+        isComplete: true,
+        label: 'Hello'
+      }),
+      Todo({
+        id: 2,
+        index: 2,
+        isComplete: false,
+        label: 'World'
+      })
+    ])
   });
 
   it('exposes a function', () => {
