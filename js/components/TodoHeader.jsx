@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import TodoTextInput from './TodoTextInput';
+import { TodoTextInput } from '.';
 
 /**
  * Wrapper component rendering header text as well as the new Todo input

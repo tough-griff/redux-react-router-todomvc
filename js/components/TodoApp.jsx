@@ -5,9 +5,8 @@ import HTML5Backend from 'react-dnd/modules/backends/HTML5';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import TodoHeader from './TodoHeader';
-import TodoList from './TodoList';
-import * as TodoActions from '../actions/TodoActions';
+import { TodoHeader, TodoList } from '.';
+import TodoActions from '../actions/TodoActions';
 
 /**
  * Top-level application component. Connects to the Redux `Provider` stores,

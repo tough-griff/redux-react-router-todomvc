@@ -1,1 +1,5 @@
-export const TODO = 'TODO';
+const Items = {
+  TODO: 'TODO'
+};
+
+export default Items;

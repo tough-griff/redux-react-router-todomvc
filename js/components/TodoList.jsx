@@ -1,8 +1,7 @@
 import { List, Seq } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
-import TodoFooter from './TodoFooter';
-import TodoItem from './TodoItem';
+import { TodoFooter, TodoItem } from '.';
 
 const FILTERS = {
   all: () => true,

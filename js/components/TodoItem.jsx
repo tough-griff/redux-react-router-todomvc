@@ -3,8 +3,8 @@ import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 
-import TodoTextInput from './TodoTextInput';
-import * as Items from '../constants/Items';
+import { TodoTextInput } from '.';
+import Items from '../constants/Items';
 
 const todoSource = {
   beginDrag(props) {

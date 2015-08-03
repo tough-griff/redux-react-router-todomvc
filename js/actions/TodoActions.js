@@ -1,141 +1,145 @@
 import 'whatwg-fetch';
 
-import * as Actions from '../constants/Actions';
+import Actions from '../constants/Actions';
 
 const SERVER_URL = 'http://localhost:9090';
 
-export function addTodo(label) {
-  return dispatch => {
-    fetch(`${SERVER_URL}/todos`, {
-      method: 'POST',
-      headers: {
-        'Accepts': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        isComplete: false,
-        label
+const TodoActions = {
+  addTodo(label) {
+    return dispatch => {
+      fetch(`${SERVER_URL}/todos`, {
+        method: 'POST',
+        headers: {
+          'Accepts': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          isComplete: false,
+          label
+        })
       })
-    })
-    .then(res => res.json())
-    .then(todo => dispatch({
-      type: Actions.ADD_TODO,
-      payload: { todo }
-    }))
-    .catch(() => dispatch({
-      type: Actions.ADD_TODO,
-      payload: new Error(),
-      error: true
-    }));
-  };
-}
+      .then(res => res.json())
+      .then(todo => dispatch({
+        type: Actions.ADD_TODO,
+        payload: { todo }
+      }))
+      .catch(() => dispatch({
+        type: Actions.ADD_TODO,
+        payload: new Error(),
+        error: true
+      }));
+    };
+  },
 
-// FIXME: this is just a stub--does nothing on the server.
-export function clearCompleteTodos() {
-  return {
-    type: Actions.CLEAR_COMPLETE_TODOS
-  };
-}
+  // FIXME: this is just a stub--does nothing on the server.
+  clearCompleteTodos() {
+    return {
+      type: Actions.CLEAR_COMPLETE_TODOS
+    };
+  },
 
-export function deleteTodo(id) {
-  return dispatch => {
-    fetch(`${SERVER_URL}/todos/${id}`, {
-      method: 'DELETE'
-    })
-    .then(() => dispatch({
-      type: Actions.DELETE_TODO,
-      payload: { id }
-    }))
-    .catch(() => dispatch({
-      type: Actions.DELETE_TODO,
-      payload: new Error(),
-      error: true
-    }));
-  };
-}
+  deleteTodo(id) {
+    return dispatch => {
+      fetch(`${SERVER_URL}/todos/${id}`, {
+        method: 'DELETE'
+      })
+      .then(() => dispatch({
+        type: Actions.DELETE_TODO,
+        payload: { id }
+      }))
+      .catch(() => dispatch({
+        type: Actions.DELETE_TODO,
+        payload: new Error(),
+        error: true
+      }));
+    };
+  },
 
-export function editTodo(id, label) {
-  return dispatch => {
-    fetch(`${SERVER_URL}/todos/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ label })
-    })
-    .then(res => res.json())
-    .then(todo => dispatch({
-      type: Actions.EDIT_TODO,
-      payload: {
-        id: todo.id,
-        label: todo.label
-      }
-    }))
-    .catch(() => dispatch({
-      type: Actions.EDIT_TODO,
-      payload: new Error(),
-      error: true
-    }));
-  };
-}
+  editTodo(id, label) {
+    return dispatch => {
+      fetch(`${SERVER_URL}/todos/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ label })
+      })
+      .then(res => res.json())
+      .then(todo => dispatch({
+        type: Actions.EDIT_TODO,
+        payload: {
+          id: todo.id,
+          label: todo.label
+        }
+      }))
+      .catch(() => dispatch({
+        type: Actions.EDIT_TODO,
+        payload: new Error(),
+        error: true
+      }));
+    };
+  },
 
-export function fetchAllTodos() {
-  return dispatch => {
-    fetch(`${SERVER_URL}/todos`, {
-      method: 'GET'
-    })
-    .then(res => res.json())
-    .then(todos => dispatch({
-      type: Actions.FETCH_ALL_TODOS,
-      payload: { todos }
-    }))
-    .catch(() => dispatch({
-      type: Actions.FETCH_ALL_TODOS,
-      payload: new Error(),
-      error: true
-    }));
-  };
-}
+  fetchAllTodos() {
+    return dispatch => {
+      fetch(`${SERVER_URL}/todos`, {
+        method: 'GET'
+      })
+      .then(res => res.json())
+      .then(todos => dispatch({
+        type: Actions.FETCH_ALL_TODOS,
+        payload: { todos }
+      }))
+      .catch(() => dispatch({
+        type: Actions.FETCH_ALL_TODOS,
+        payload: new Error(),
+        error: true
+      }));
+    };
+  },
 
-export function markTodo(id, isComplete) {
-  return dispatch => {
-    fetch(`${SERVER_URL}/todos/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ isComplete })
-    })
-    .then(res => res.json())
-    .then(todo => dispatch({
-      type: Actions.MARK_TODO,
-      payload: {
-        id: todo.id,
-        isComplete: todo.isComplete
-      }
-    }))
-    .catch(() => dispatch({
-      type: Actions.MARK_TODO,
-      payload: new Error(),
-      error: true
-    }));
-  };
-}
+  markTodo(id, isComplete) {
+    return dispatch => {
+      fetch(`${SERVER_URL}/todos/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ isComplete })
+      })
+      .then(res => res.json())
+      .then(todo => dispatch({
+        type: Actions.MARK_TODO,
+        payload: {
+          id: todo.id,
+          isComplete: todo.isComplete
+        }
+      }))
+      .catch(() => dispatch({
+        type: Actions.MARK_TODO,
+        payload: new Error(),
+        error: true
+      }));
+    };
+  },
 
-// FIXME: this is just a stub--does nothing on the server.
-export function markAllTodos(isComplete) {
-  return {
-    type: Actions.MARK_ALL_TODOS,
-    payload: { isComplete }
-  };
-}
+  // FIXME: this is just a stub--does nothing on the server.
+  markAllTodos(isComplete) {
+    return {
+      type: Actions.MARK_ALL_TODOS,
+      payload: { isComplete }
+    };
+  },
 
-// FIXME: this is just a stub--does nothing on the server.
-export function moveTodo(at, to) {
-  return {
-    type: Actions.MOVE_TODO,
-    payload: { at, to }
-  };
-}
+  // FIXME: this is just a stub--does nothing on the server.
+  moveTodo(at, to) {
+    return {
+      type: Actions.MOVE_TODO,
+      payload: { at, to }
+    };
+  }
+};
+
+export default TodoActions;
