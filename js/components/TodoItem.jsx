@@ -1,4 +1,3 @@
-import { Record } from 'immutable';
 import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
@@ -8,21 +7,21 @@ import { Items } from '../constants';
 
 const todoSource = {
   beginDrag(props) {
-    return { index: props.todo.index };
+    return { index: props.index };
   }
 };
 
 const todoTarget = {
   canDrop(props, monitor) {
-    const { index } = props.todo;
+    const { index } = props;
     const draggedIndex = monitor.getItem().index;
 
     return draggedIndex !== index && draggedIndex !== index - 1;
   },
 
   drop(props, monitor) {
-    const { moveTodo, todo } = props;
-    moveTodo(monitor.getItem().index, todo.index);
+    const { index, moveTodo } = props;
+    moveTodo(monitor.getItem().index, index);
   }
 };
 
@@ -45,11 +44,14 @@ export default class TodoItem extends Component {
     connectDropTarget: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
     editTodo: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
+    isComplete: PropTypes.bool.isRequired,
     isDragging: PropTypes.bool.isRequired,
     isOver: PropTypes.bool.isRequired,
+    label: PropTypes.string.isRequired,
     markTodo: PropTypes.func.isRequired,
-    moveTodo: PropTypes.func.isRequired,
-    todo: PropTypes.instanceOf(Record).isRequired
+    moveTodo: PropTypes.func.isRequired
   }
 
   state = {
@@ -57,10 +59,7 @@ export default class TodoItem extends Component {
   }
 
   onDestroy = () => {
-    // FIXME
-    // const { deleteTodo, todo: { id }} = this.props;
-    const { deleteTodo, todo } = this.props;
-    const { id } = todo;
+    const { deleteTodo, id } = this.props;
 
     deleteTodo(id);
   }
@@ -72,10 +71,7 @@ export default class TodoItem extends Component {
   }
 
   onSave = (label) => {
-    // FIXME
-    // const { deleteTodo, editTodo, todo: { id }} = this.props;
-    const { deleteTodo, editTodo, todo } = this.props;
-    const { id } = todo;
+    const { deleteTodo, editTodo, id } = this.props;
 
     if (label.length) {
       editTodo(id, label);
@@ -91,8 +87,7 @@ export default class TodoItem extends Component {
   onToggle = () => {
     // FIXME
     // const { markTodo, todo: { id, isComplete }} = this.props;
-    const { markTodo, todo } = this.props;
-    const { id, isComplete } = todo;
+    const { id, isComplete, markTodo } = this.props;
 
     markTodo(id, !isComplete);
   }
@@ -104,20 +99,21 @@ export default class TodoItem extends Component {
       <TodoTextInput
         className="edit"
         onSave={this.onSave}
-        value={this.props.todo.label}
+        value={this.props.label}
       />
     );
   }
 
   render() {
-    // FIXME
-    const { canDrop, connectDragSource, connectDropTarget, isDragging, isOver, todo } = this.props;
-    const { isComplete, label } = todo;
+    const {
+      canDrop, connectDragSource, connectDropTarget, isComplete, isDragging,
+      isOver, label
+    } = this.props;
 
     const classes = classnames({
       completed: isComplete,
       dragging: isDragging,
-      'dragging-over': isOver && canDrop,
+      over: isOver && canDrop,
       editing: this.state.isEditing
     });
 

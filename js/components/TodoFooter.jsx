@@ -1,15 +1,39 @@
+import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { DropTarget } from 'react-dnd';
+
+import { Items } from '../constants';
+
+const footerTarget = {
+  canDrop(props, monitor) {
+    return monitor.getItem().index < props.maxIndex;
+  },
+
+  drop(props, monitor) {
+    const { moveTodo, maxIndex } = props;
+    moveTodo(monitor.getItem().index, maxIndex + 1);
+  }
+};
 
 /**
  * Manages routing using ReactRouter.Link, as well as renders a
  * 'Clear complete' button and complete tasks counter.
  */
+@DropTarget(Items.TODO, footerTarget, (connect, monitor) => ({
+  canDrop: monitor.canDrop(),
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver()
+}))
 export default class TodoFooter extends Component {
   static propTypes = {
+    canDrop: PropTypes.bool.isRequired,
     clearCompleteTodos: PropTypes.func.isRequired,
     completeCount: PropTypes.number.isRequired,
-    incompleteCount: PropTypes.number.isRequired
+    incompleteCount: PropTypes.number.isRequired,
+    isOver: PropTypes.bool.isRequired,
+    maxIndex: PropTypes.number.isRequired,
+    moveTodo: PropTypes.func.isRequired
   }
 
   onRemoveCompleted = () => {
@@ -42,8 +66,13 @@ export default class TodoFooter extends Component {
   }
 
   render() {
-    return (
-      <footer className="footer">
+    const { canDrop, isOver, connectDropTarget } = this.props;
+    const classes = classnames('footer', {
+      over: isOver && canDrop
+    });
+
+    return connectDropTarget(
+      <footer className={classes}>
         {this.renderTodoCount()}
         <ul className="filters">
           <li>

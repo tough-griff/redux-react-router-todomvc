@@ -33,38 +33,52 @@ export default class TodoList extends Component {
     // FIXME
     // const { actions, todos: { size }} = this.props;
     const { actions, todos } = this.props;
+    const { clearCompleteTodos, moveTodo } = actions;
     const { size } = todos;
 
     if (!size) return null;
 
     const incompleteCount = size - completeCount;
+    const maxIndex = Seq(todos).reduce((max, todo) => {
+      const { index } = todo;
+      return (index > max) ? index : max;
+    }, 0);
 
     return (
       <TodoFooter
-        clearCompleteTodos={actions.clearCompleteTodos}
+        clearCompleteTodos={clearCompleteTodos}
         completeCount={completeCount}
         incompleteCount={incompleteCount}
+        maxIndex={maxIndex}
+        moveTodo={moveTodo}
       />
     );
   }
 
   renderListItems() {
     // FIXME?
-    const { actions, filter, todos } = this.props;
-    const { deleteTodo, editTodo, markTodo, moveTodo } = actions;
+    const { filter, todos } = this.props;
 
     return Seq(todos).filter(FILTERS[filter])
       .sortBy(todo => todo.index)
-      .map(todo => (
-        <TodoItem
-          key={`todo-${todo.id}`}
-          deleteTodo={deleteTodo}
-          editTodo={editTodo}
-          markTodo={markTodo}
-          moveTodo={moveTodo}
-          todo={todo}
-        />
-      )).toArray();
+      .map(::this.renderTodo)
+      .toArray();
+  }
+
+  renderTodo(todo) {
+    const { deleteTodo, editTodo, markTodo, moveTodo } = this.props.actions;
+    const todoObj = todo.toJS();
+
+    return (
+      <TodoItem
+        key={`todo-${todo.id}`}
+        deleteTodo={deleteTodo}
+        editTodo={editTodo}
+        markTodo={markTodo}
+        moveTodo={moveTodo}
+        {...todoObj}
+      />
+    );
   }
 
   renderToggle(completeCount) {

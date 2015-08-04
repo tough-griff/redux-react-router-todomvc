@@ -6,7 +6,6 @@
   opacity: 0.25;
 }
 
-.todo-list li.dragging-over {
+.over {
   border-top: 2px solid #5dc2af;
-  margin-top: -2px;
 }
