@@ -4,10 +4,30 @@ import { Actions } from '../constants';
 
 const SERVER_URL = 'http://localhost:9090';
 
+/**
+ * Check for HTTP error responses.
+ */
+function check(response) {
+  const { status, statusText } = response;
+
+  if (status >= 200 && status < 300) return response;
+
+  const error = new Error(statusText);
+  error.response = response;
+  return error;
+}
+
+/**
+ * Parse the response's JSON.
+ */
+function parse(response) {
+  return response.json();
+}
+
 const TodoActions = {
   addTodo(label) {
     return dispatch => {
-      fetch(`${SERVER_URL}/todos`, {
+      return fetch(`${SERVER_URL}/todos`, {
         method: 'POST',
         headers: {
           'Accepts': 'application/json',
@@ -18,14 +38,15 @@ const TodoActions = {
           label
         })
       })
-      .then(res => res.json())
+      .then(check)
+      .then(parse)
       .then(todo => dispatch({
         type: Actions.ADD_TODO,
         payload: { todo }
       }))
-      .catch(() => dispatch({
+      .catch(err => dispatch({
         type: Actions.ADD_TODO,
-        payload: new Error(),
+        payload: err,
         error: true
       }));
     };
@@ -40,16 +61,17 @@ const TodoActions = {
 
   deleteTodo(id) {
     return dispatch => {
-      fetch(`${SERVER_URL}/todos/${id}`, {
+      return fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'DELETE'
       })
+      .then(check)
       .then(() => dispatch({
         type: Actions.DELETE_TODO,
         payload: { id }
       }))
-      .catch(() => dispatch({
+      .catch(err => dispatch({
         type: Actions.DELETE_TODO,
-        payload: new Error(),
+        payload: err,
         error: true
       }));
     };
@@ -57,7 +79,7 @@ const TodoActions = {
 
   editTodo(id, label) {
     return dispatch => {
-      fetch(`${SERVER_URL}/todos/${id}`, {
+      return fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
         headers: {
           'Accept': 'application/json',
@@ -65,7 +87,8 @@ const TodoActions = {
         },
         body: JSON.stringify({ label })
       })
-      .then(res => res.json())
+      .then(check)
+      .then(parse)
       .then(todo => dispatch({
         type: Actions.EDIT_TODO,
         payload: {
@@ -73,9 +96,9 @@ const TodoActions = {
           label: todo.label
         }
       }))
-      .catch(() => dispatch({
+      .catch(err => dispatch({
         type: Actions.EDIT_TODO,
-        payload: new Error(),
+        payload: err,
         error: true
       }));
     };
@@ -83,17 +106,18 @@ const TodoActions = {
 
   fetchAllTodos() {
     return dispatch => {
-      fetch(`${SERVER_URL}/todos`, {
+      return fetch(`${SERVER_URL}/todos`, {
         method: 'GET'
       })
-      .then(res => res.json())
+      .then(check)
+      .then(parse)
       .then(todos => dispatch({
         type: Actions.FETCH_ALL_TODOS,
         payload: { todos }
       }))
-      .catch(() => dispatch({
+      .catch(err => dispatch({
         type: Actions.FETCH_ALL_TODOS,
-        payload: new Error(),
+        payload: err,
         error: true
       }));
     };
@@ -101,7 +125,7 @@ const TodoActions = {
 
   markTodo(id, isComplete) {
     return dispatch => {
-      fetch(`${SERVER_URL}/todos/${id}`, {
+      return fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
         headers: {
           'Accept': 'application/json',
@@ -109,7 +133,8 @@ const TodoActions = {
         },
         body: JSON.stringify({ isComplete })
       })
-      .then(res => res.json())
+      .then(check)
+      .then(parse)
       .then(todo => dispatch({
         type: Actions.MARK_TODO,
         payload: {
@@ -117,9 +142,9 @@ const TodoActions = {
           isComplete: todo.isComplete
         }
       }))
-      .catch(() => dispatch({
+      .catch(err => dispatch({
         type: Actions.MARK_TODO,
-        payload: new Error(),
+        payload: err,
         error: true
       }));
     };
