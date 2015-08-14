@@ -19,11 +19,6 @@ export default class TodoList extends Component {
     todos: PropTypes.instanceOf(List).isRequired
   }
 
-  // NOTE: should this be moved somewhere else?
-  componentDidMount() {
-    this.props.actions.fetchAllTodos();
-  }
-
   onToggle = (e) => {
     // NOTE: `e.target` broken in 0.14.0-beta1, using `e.nativeEvent.target`
     this.props.actions.markAllTodos(e.nativeEvent.target.checked);
@@ -61,11 +56,11 @@ export default class TodoList extends Component {
 
     return Seq(todos).filter(FILTERS[filter])
       .sortBy(todo => todo.index)
-      .map(::this.renderTodo)
+      .map(this.renderTodo)
       .toArray();
   }
 
-  renderTodo(todo) {
+  renderTodo = (todo) => {
     const { deleteTodo, editTodo, markTodo, moveTodo } = this.props.actions;
     const todoObj = todo.toJS();
 

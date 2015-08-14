@@ -1,5 +1,5 @@
-const Items = {
-  TODO: 'TODO'
-};
+import constantMirror from 'constant-mirror';
 
-export default Items;
+export default constantMirror(
+  'TODO'
+);

@@ -1,12 +1,12 @@
-const Actions = {
-  ADD_TODO: 'ADD_TODO',
-  CLEAR_COMPLETE_TODOS: 'CLEAR_COMPLETE_TODOS',
-  DELETE_TODO: 'DELETE_TODO',
-  EDIT_TODO: 'EDIT_TODO',
-  FETCH_ALL_TODOS: 'FETCH_ALL_TODOS',
-  MARK_ALL_TODOS: 'MARK_ALL_TODOS',
-  MARK_TODO: 'MARK_TODO',
-  MOVE_TODO: 'MOVE_TODO'
-};
+import constantMirror from 'constant-mirror';
 
-export default Actions;
+export default constantMirror(
+  'ADD_TODO',
+  'CLEAR_COMPLETE_TODOS',
+  'DELETE_TODO',
+  'EDIT_TODO',
+  'FETCH_ALL_TODOS',
+  'MARK_ALL_TODOS',
+  'MARK_TODO',
+  'MOVE_TODO'
+);

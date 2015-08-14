@@ -5,13 +5,7 @@ import { DragSource, DropTarget } from 'react-dnd';
 import { TodoTextInput } from '.';
 import { Items } from '../constants';
 
-const todoSource = {
-  beginDrag(props) {
-    return { index: props.index };
-  }
-};
-
-const todoTarget = {
+const target = {
   canDrop(props, monitor) {
     const { index } = props;
     const draggedIndex = monitor.getItem().index;
@@ -25,18 +19,32 @@ const todoTarget = {
   }
 };
 
+const source = {
+  beginDrag(props) {
+    return { index: props.index };
+  }
+};
+
+function targetCollect(connect, monitor) {
+  return {
+    canDrop: monitor.canDrop(),
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
+
+function sourceCollect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
+
 /**
  * Represents a single todo item in a todo list.
  */
-@DropTarget(Items.TODO, todoTarget, (connect, monitor) => ({
-  canDrop: monitor.canDrop(),
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver()
-}))
-@DragSource(Items.TODO, todoSource, (connect, monitor) => ({
-  connectDragSource: connect.dragSource(),
-  isDragging: monitor.isDragging()
-}))
+@DropTarget(Items.TODO, target, targetCollect)
+@DragSource(Items.TODO, source, sourceCollect)
 export default class TodoItem extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,

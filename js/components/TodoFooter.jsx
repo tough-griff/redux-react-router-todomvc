@@ -5,7 +5,7 @@ import { DropTarget } from 'react-dnd';
 
 import { Items } from '../constants';
 
-const footerTarget = {
+const target = {
   canDrop(props, monitor) {
     return monitor.getItem().index < props.maxIndex;
   },
@@ -16,15 +16,19 @@ const footerTarget = {
   }
 };
 
+function collect(connect, monitor) {
+  return {
+    canDrop: monitor.canDrop(),
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
+
 /**
  * Manages routing using ReactRouter.Link, as well as renders a
  * 'Clear complete' button and complete tasks counter.
  */
-@DropTarget(Items.TODO, footerTarget, (connect, monitor) => ({
-  canDrop: monitor.canDrop(),
-  connectDropTarget: connect.dropTarget(),
-  isOver: monitor.isOver()
-}))
+@DropTarget(Items.TODO, target, collect)
 export default class TodoFooter extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,

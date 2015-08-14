@@ -8,6 +8,14 @@ import { bindActionCreators } from 'redux';
 import { TodoHeader, TodoList } from '.';
 import { TodoActions } from '../actions';
 
+function mapStateToProps(state) {
+  return { todos: state.todos.get('todoList') };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators(TodoActions, dispatch) };
+}
+
 /**
  * Top-level application component. Connects to the Redux `Provider` stores,
  * passing their state through as props.
@@ -15,19 +23,20 @@ import { TodoActions } from '../actions';
  * @see todos
  */
 @DragDropContext(HTML5Backend)
-@connect(state => ({
-  todos: state.todos.get('todoList')
-}))
+@connect(mapStateToProps, mapDispatchToProps)
 export default class TodoApp extends Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    todos: PropTypes.instanceOf(List).isRequired,
-    location: PropTypes.object.isRequired
+    actions: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    todos: PropTypes.instanceOf(List).isRequired
+  }
+
+  componentWillMount() {
+    this.props.actions.fetchAllTodos();
   }
 
   render() {
-    const { dispatch, location, todos } = this.props;
-    const actions = bindActionCreators(TodoActions, dispatch);
+    const { actions, location, todos } = this.props;
     const filter = location.pathname.replace('/todos/', '');
 
     return (
