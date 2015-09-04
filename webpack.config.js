@@ -8,8 +8,7 @@ module.exports = {
 
   entry: {
     app: [
-      'webpack-dev-server/client?http://localhost:8080',
-      'webpack/hot/only-dev-server',
+      'webpack-hot-middleware/client',
       './js/index'
     ]
   },
@@ -37,13 +36,6 @@ module.exports = {
           optional: ['runtime'],
           stage: 0
         }
-      }
-    ],
-    postLoaders: [
-      {
-        loader: 'react-hot',
-        test: /\.jsx?$/,
-        exclude: /node_modules/
       }
     ]
   },
