@@ -14,9 +14,9 @@ module.exports = {
   },
 
   output: {
-    path: path.join(__dirname, 'assets'),
+    path: path.join(__dirname, 'assets', 'js'),
     filename: 'bundle.js',
-    publicPath: '/assets/'
+    publicPath: '/assets/js/'
   },
 
   module: {
@@ -50,6 +50,7 @@ module.exports = {
   devtool: 'eval',
 
   plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ]
