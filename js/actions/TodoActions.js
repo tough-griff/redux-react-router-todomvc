@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 
 import { Actions } from '../constants';
 
-const SERVER_URL = 'http://localhost:9090';
+const SERVER_URL = '/api';
 
 /**
  * Check for HTTP error responses.

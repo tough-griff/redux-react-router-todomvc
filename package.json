@@ -44,6 +44,7 @@
     "istanbul": "^0.3.19",
     "json-server": "^0.7.28",
     "mocha": "^2.3.2",
+    "morgan": "^1.6.1",
     "node-libs-browser": "^0.5.2",
     "react-transform-catch-errors": "^0.1.1",
     "react-transform-webpack-hmr": "^0.1.4",
