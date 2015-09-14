@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Router, { Redirect, Route } from 'react-router';
-import { history } from 'react-router/lib/BrowserHistory';
+import { createHistory } from 'history';
 
 import { TodoApp } from '.';
 
 export default class TodoRouter extends Component {
   render() {
     return (
-      <Router history={history}>
+      <Router history={createHistory()}>
         <Route path="todos" component={TodoApp}>
           <Route path="all" />
           <Route path="active" />
