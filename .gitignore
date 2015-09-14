@@ -1,4 +1,5 @@
-node_modules
 *.log
-assets
+assets/
+coverage/
 db.json
+node_modules/

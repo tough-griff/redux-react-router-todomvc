@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import { TodoRouter } from '../components';
-import { configureStore } from '../store';
+import { TodoRouter } from './components';
+import configureStore from './store';
 
 const store = configureStore();
 

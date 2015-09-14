@@ -49,7 +49,7 @@ export default class TodoTextInput extends Component {
 
     return (
       <input
-        autoFocus={true}
+        autoFocus
         className={className}
         onChange={this.onChange}
         onKeyDown={this.onKeyDown}

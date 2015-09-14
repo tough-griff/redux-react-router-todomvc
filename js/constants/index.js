@@ -1,2 +1,2 @@
-export { default as Actions } from './Actions';
-export { default as Items } from './Items';
+export Actions from './Actions';
+export Items from './Items';

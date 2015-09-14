@@ -1,1 +1,1 @@
-export { default as TodoActions } from './TodoActions';
+export TodoActions from './TodoActions';

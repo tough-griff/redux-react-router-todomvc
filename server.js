@@ -46,5 +46,5 @@ dbServer.listen(9090, 'localhost', function(err) {
     return;
   }
 
-  console.log('DB Server listening at localhost:9090');
+  console.log('DB Server listening at http://localhost:9090');
 });
