@@ -1,3 +1,4 @@
+import capitalize from 'capitalize';
 import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
@@ -34,6 +35,7 @@ export default class TodoFooter extends Component {
     canDrop: PropTypes.bool.isRequired,
     clearCompleteTodos: PropTypes.func.isRequired,
     completeCount: PropTypes.number.isRequired,
+    currentFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
     incompleteCount: PropTypes.number.isRequired,
     isOver: PropTypes.bool.isRequired,
     maxIndex: PropTypes.number.isRequired,
@@ -54,6 +56,28 @@ export default class TodoFooter extends Component {
       >
         Clear complete
       </button>
+    );
+  }
+
+  // FIXME: This wouldn't be necessary if activeClassName was working.
+  renderFilterLinks() {
+    const { currentFilter } = this.props;
+
+    return (
+      <ul className="filters">
+        {['all', 'active', 'completed'].map(filter => {
+          const classes = classnames({ selected: filter === currentFilter });
+          const filterWord = capitalize(filter);
+
+          return (
+            <li key={filter}>
+              <Link className={classes} to={`/todos/${filter}`}>
+                {filterWord}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     );
   }
 
@@ -78,17 +102,7 @@ export default class TodoFooter extends Component {
     return connectDropTarget(
       <footer className={classes}>
         {this.renderTodoCount()}
-        <ul className="filters">
-          <li>
-            <Link to="/todos/all">All</Link>
-          </li>
-          <li>
-            <Link to="/todos/active">Active</Link>
-          </li>
-          <li>
-            <Link to="/todos/completed">Completed</Link>
-          </li>
-        </ul>
+        {this.renderFilterLinks()}
         {this.renderClearButton()}
       </footer>
     );

@@ -20,14 +20,11 @@ export default class TodoList extends Component {
   }
 
   onToggle = (e) => {
-    // NOTE: `e.target` broken in 0.14.0-beta1, using `e.nativeEvent.target`
-    this.props.actions.markAllTodos(e.nativeEvent.target.checked);
+    this.props.actions.markAllTodos(e.target.checked);
   }
 
   renderFooter(completeCount) {
-    // FIXME
-    // const { actions, todos: { size }} = this.props;
-    const { actions, todos } = this.props;
+    const { actions, filter, todos } = this.props;
     const { clearCompleteTodos, moveTodo } = actions;
     const { size } = todos;
 
@@ -43,6 +40,7 @@ export default class TodoList extends Component {
       <TodoFooter
         clearCompleteTodos={clearCompleteTodos}
         completeCount={completeCount}
+        currentFilter={filter}
         incompleteCount={incompleteCount}
         maxIndex={maxIndex}
         moveTodo={moveTodo}
@@ -51,7 +49,6 @@ export default class TodoList extends Component {
   }
 
   renderListItems() {
-    // FIXME?
     const { filter, todos } = this.props;
 
     return Seq(todos).filter(FILTERS[filter])

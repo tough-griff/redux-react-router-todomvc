@@ -27,8 +27,7 @@ export default class TodoTextInput extends Component {
 
   onChange = (e) => {
     this.setState({
-      // NOTE: `e.target` broken in 0.14.0-beta1, using `e.nativeEvent.target`
-      value: e.nativeEvent.target.value
+      value: e.target.value
     });
   }
 
@@ -42,8 +41,6 @@ export default class TodoTextInput extends Component {
   }
 
   render() {
-    // FIXME: why doesn't ESLint like this?
-    // const { props: { className, placeholder }, state: { value }} = this;
     const { className, placeholder } = this.props;
     const { value } = this.state;
 

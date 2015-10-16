@@ -1,50 +1,55 @@
-'use-strict';
+import express from 'express';
+import jsonServer from 'json-server';
+import logger from 'morgan';
+import path from 'path';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 
-var config = require('./webpack.config');
-var express = require('express');
-var jsonServer = require('json-server');
-var logger = require('morgan');
-var path = require('path');
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
+import config from './webpack.config.dev';
 
-var app = express();
-var compiler = webpack(config);
-var dbRouter = jsonServer.router('db.json');
-var port = process.env.PORT || '8080';
+const app = express();
+const compiler = webpack(config);
+const dbRouter = jsonServer.router('db.json');
+const port = process.env.PORT || '8080';
+const nodeEnv = process.env.NODE_ENV || 'development';
 
 // Configure the logger
 app.use(logger('dev', {
-  skip: function(req, res) {
+  skip: req => {
     return process.env.NODE_ENV === 'test' || req.path === '/favicon.ico';
   }
 }));
 
 // === Configure Webpack middleware ===
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}));
+if (nodeEnv === 'development') {
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }));
 
-app.use(webpackHotMiddleware(compiler));
+  app.use(webpackHotMiddleware(compiler));
+}
 
 // Serve static files and index.html
 app.use('/assets/css', express.static('css'));
+if (nodeEnv === 'production') {
+  app.use('/assets/js', express.static('assets/js'));
+}
 
-// Host the database under /db
+// Host the json server under /api
 app.use('/api', dbRouter);
 
 // Serve index.html from all URL's, allowing use of React Router.
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(port, 'localhost', function(err) {
+app.listen(port, 'localhost', err => {
   if (err) {
     console.log(err);
     return;
   }
 
-  console.log(`Server listening at http://localhost:${port}`);
+  console.log(`Server listening at http://localhost:${port} in ${nodeEnv} mode.`);
 });

@@ -93,8 +93,6 @@ export default class TodoItem extends Component {
   }
 
   onToggle = () => {
-    // FIXME
-    // const { markTodo, todo: { id, isComplete }} = this.props;
     const { id, isComplete, markTodo } = this.props;
 
     markTodo(id, !isComplete);

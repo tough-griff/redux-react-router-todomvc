@@ -1,6 +1,7 @@
 // import fetchMock from 'fetch-mock';
 import expect from 'expect.js';
 
+import { Actions } from '../../js/constants';
 import { TodoActions } from '../../js/actions';
 
 // TODO: fixme
@@ -34,8 +35,13 @@ describe('TodoActions', () => {
   });
 
   context('clearCompleteTodos', () => {
-    it('returns an object', () => {
-      expect(TodoActions.clearCompleteTodos()).to.be.an('object');
+    const subject = TodoActions.clearCompleteTodos();
+    const action = {
+      type: Actions.CLEAR_COMPLETE_TODOS
+    };
+
+    it('creates the correct action', () => {
+      expect(subject).to.eql(action);
     });
   });
 
@@ -64,14 +70,29 @@ describe('TodoActions', () => {
   });
 
   context('markAllTodos', () => {
-    it('returns an object', () => {
-      expect(TodoActions.markAllTodos()).to.be.an('object');
+    const isComplete = true;
+    const subject = TodoActions.markAllTodos(isComplete);
+    const action = {
+      type: Actions.MARK_ALL_TODOS,
+      payload: { isComplete }
+    };
+
+    it('creates the correct action', () => {
+      expect(subject).to.eql(action);
     });
   });
 
   context('moveTodo', () => {
-    it('returns an object', () => {
-      expect(TodoActions.moveTodo()).to.be.an('object');
+    const at = 5;
+    const to = 8;
+    const subject = TodoActions.moveTodo(at, to);
+    const action = {
+      type: Actions.MOVE_TODO,
+      payload: { at, to }
+    };
+
+    it('creates the correct action', () => {
+      expect(subject).to.eql(action);
     });
   });
 });

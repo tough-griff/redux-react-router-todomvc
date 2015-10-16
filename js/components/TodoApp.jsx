@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd/modules/backends/HTML5';
+import HTML5Backend from 'react-dnd-html5-backend';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
