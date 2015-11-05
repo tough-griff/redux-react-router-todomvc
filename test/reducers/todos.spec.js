@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 import expect from 'expect.js';
 import { List, Map, Record } from 'immutable';
 
@@ -8,7 +9,7 @@ describe('todos', () => {
     id: 0,
     index: 0,
     isComplete: false,
-    label: 'new todo'
+    label: 'new todo',
   });
 
   const state = Map({
@@ -17,15 +18,15 @@ describe('todos', () => {
         id: 1,
         index: 1,
         isComplete: true,
-        label: 'Hello'
+        label: 'Hello',
       }),
       Todo({
         id: 2,
         index: 2,
         isComplete: false,
-        label: 'World'
-      })
-    ])
+        label: 'World',
+      }),
+    ]),
   });
 
   it('exposes a function', () => {
@@ -39,9 +40,9 @@ describe('todos', () => {
         todo: {
           id: 3,
           label: 'New',
-          isComplete: false
-        }
-      }
+          isComplete: false,
+        },
+      },
     };
 
     it('appends a new todo', () => {
@@ -53,7 +54,7 @@ describe('todos', () => {
 
   context('clearCompleteTodos', () => {
     const action = {
-      type: 'CLEAR_COMPLETE_TODOS'
+      type: 'CLEAR_COMPLETE_TODOS',
     };
 
     it('removes todos where isComplete = true', () => {
@@ -67,8 +68,8 @@ describe('todos', () => {
     const action = {
       type: 'DELETE_TODO',
       payload: {
-        id: 2
-      }
+        id: 2,
+      },
     };
 
     it('removes the correct todo', () => {
@@ -83,8 +84,8 @@ describe('todos', () => {
       type: 'EDIT_TODO',
       payload: {
         id: 2,
-        label: 'New label'
-      }
+        label: 'New label',
+      },
     };
 
     it('modifies the correct todo', () => {
@@ -105,21 +106,21 @@ describe('todos', () => {
         todos: [{
           id: 1,
           label: 'A couple',
-          isComplete: true
+          isComplete: true,
         }, {
           id: 2,
           label: 'of new',
-          isComplete: true
+          isComplete: true,
         }, {
           id: 3,
           label: 'todos',
-          isComplete: true
+          isComplete: true,
         }, {
           id: 4,
           label: 'all completed',
-          isComplete: true
-        }]
-      }
+          isComplete: true,
+        }],
+      },
     };
 
     it('sets todoList to the new fetched todos', () => {
@@ -134,8 +135,8 @@ describe('todos', () => {
       type: 'MARK_ALL_TODOS',
       payload: {
         id: 2,
-        isComplete: true
-      }
+        isComplete: true,
+      },
     };
 
     it('modifies all todos', () => {
@@ -149,8 +150,8 @@ describe('todos', () => {
       type: 'MARK_TODO',
       payload: {
         id: 2,
-        isComplete: true
-      }
+        isComplete: true,
+      },
     };
 
     it('modifies the correct todo', () => {
@@ -167,8 +168,8 @@ describe('todos', () => {
       type: 'MOVE_TODO',
       payload: {
         at: 2,
-        to: 1
-      }
+        to: 1,
+      },
     };
 
     it('modifies the todo list indices correctly', () => {

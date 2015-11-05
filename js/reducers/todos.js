@@ -5,7 +5,7 @@ const Todo = Record({
   id: 0,
   index: 0,
   isComplete: false,
-  label: 'new todo'
+  label: 'new todo',
 });
 
 const ACTIONS_MAP = {
@@ -80,11 +80,11 @@ const ACTIONS_MAP = {
         return newTodo;
       });
     });
-  }
+  },
 };
 
 const initialState = Map({
-  todoList: List()
+  todoList: List(),
 });
 
 export default function todos(state = initialState, action) {

@@ -10,33 +10,33 @@ export default class TodoTextInput extends Component {
     className: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
   }
 
   state = {
-    value: this.props.value || ''
+    value: this.props.value || '',
   }
 
   // FIXME: properly register blur events on the input field.
   onBlur = () => {
     this.props.onSave(this.state.value.trim());
     this.setState({
-      value: ''
+      value: '',
     });
   }
 
-  onChange = (e) => {
+  onChange = (evt) => {
     this.setState({
-      value: e.target.value
+      value: evt.target.value,
     });
   }
 
-  onKeyDown = (e) => {
-    if (e.keyCode !== ENTER_KEY_CODE) return;
+  onKeyDown = (evt) => {
+    if (evt.keyCode !== ENTER_KEY_CODE) return;
 
     this.props.onSave(this.state.value.trim());
     this.setState({
-      value: ''
+      value: '',
     });
   }
 

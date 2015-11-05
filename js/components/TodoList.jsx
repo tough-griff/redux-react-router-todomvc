@@ -6,7 +6,7 @@ import { TodoFooter, TodoItem } from '.';
 const FILTERS = {
   all: () => true,
   active: todo => !todo.isComplete,
-  completed: todo => todo.isComplete
+  completed: todo => todo.isComplete,
 };
 
 /**
@@ -16,11 +16,11 @@ export default class TodoList extends Component {
   static propTypes = {
     actions: PropTypes.objectOf(PropTypes.func.isRequired).isRequired,
     filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
-    todos: PropTypes.instanceOf(List).isRequired
+    todos: PropTypes.instanceOf(List).isRequired,
   }
 
-  onToggle = (e) => {
-    this.props.actions.markAllTodos(e.target.checked);
+  onToggle = (evt) => {
+    this.props.actions.markAllTodos(evt.target.checked);
   }
 
   renderFooter(completeCount) {

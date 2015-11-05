@@ -8,7 +8,7 @@ import { TodoTextInput } from '.';
  */
 export default class TodoHeader extends Component {
   static propTypes = {
-    addTodo: PropTypes.func.isRequired
+    addTodo: PropTypes.func.isRequired,
   }
 
   onSave = (label) => {

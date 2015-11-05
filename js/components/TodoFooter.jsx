@@ -14,14 +14,14 @@ const target = {
   drop(props, monitor) {
     const { moveTodo, maxIndex } = props;
     moveTodo(monitor.getItem().index, maxIndex + 1);
-  }
+  },
 };
 
 function collect(connect, monitor) {
   return {
     canDrop: monitor.canDrop(),
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver(),
   };
 }
 
@@ -35,11 +35,12 @@ export default class TodoFooter extends Component {
     canDrop: PropTypes.bool.isRequired,
     clearCompleteTodos: PropTypes.func.isRequired,
     completeCount: PropTypes.number.isRequired,
+    connectDropTarget: PropTypes.func.isRequired,
     currentFilter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
     incompleteCount: PropTypes.number.isRequired,
     isOver: PropTypes.bool.isRequired,
     maxIndex: PropTypes.number.isRequired,
-    moveTodo: PropTypes.func.isRequired
+    moveTodo: PropTypes.func.isRequired,
   }
 
   onRemoveCompleted = () => {
@@ -96,7 +97,7 @@ export default class TodoFooter extends Component {
   render() {
     const { canDrop, isOver, connectDropTarget } = this.props;
     const classes = classnames('footer', {
-      over: isOver && canDrop
+      over: isOver && canDrop,
     });
 
     return connectDropTarget(

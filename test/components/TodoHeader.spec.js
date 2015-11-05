@@ -1,5 +1,5 @@
+/* eslint-env mocha */
 import expect from 'expect.js';
-import jsdom from 'mocha-jsdom';
 import sinon from 'sinon';
 
 import setup from '../helpers/componentSetup';
@@ -7,8 +7,6 @@ import setup from '../helpers/componentSetup';
 import { TodoHeader } from '../../js/components';
 
 describe('TodoHeader', () => {
-  jsdom();
-
   it('should render correctly', () => {
     const testProps = { addTodo: sinon.spy() };
     const { output } = setup(TodoHeader, testProps);

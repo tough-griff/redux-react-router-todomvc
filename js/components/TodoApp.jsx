@@ -28,7 +28,7 @@ export default class TodoApp extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    todos: PropTypes.instanceOf(List).isRequired
+    todos: PropTypes.instanceOf(List).isRequired,
   }
 
   componentWillMount() {

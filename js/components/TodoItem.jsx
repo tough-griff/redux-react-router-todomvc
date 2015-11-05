@@ -16,27 +16,27 @@ const target = {
   drop(props, monitor) {
     const { index, moveTodo } = props;
     moveTodo(monitor.getItem().index, index);
-  }
+  },
 };
 
 const source = {
   beginDrag(props) {
     return { index: props.index };
-  }
+  },
 };
 
 function targetCollect(connect, monitor) {
   return {
     canDrop: monitor.canDrop(),
     connectDropTarget: connect.dropTarget(),
-    isOver: monitor.isOver()
+    isOver: monitor.isOver(),
   };
 }
 
 function sourceCollect(connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
   };
 }
 
@@ -59,11 +59,11 @@ export default class TodoItem extends Component {
     isOver: PropTypes.bool.isRequired,
     label: PropTypes.string.isRequired,
     markTodo: PropTypes.func.isRequired,
-    moveTodo: PropTypes.func.isRequired
+    moveTodo: PropTypes.func.isRequired,
   }
 
   state = {
-    isEditing: false
+    isEditing: false,
   }
 
   onDestroy = () => {
@@ -74,7 +74,7 @@ export default class TodoItem extends Component {
 
   onEdit = () => {
     this.setState({
-      isEditing: true
+      isEditing: true,
     });
   }
 
@@ -88,7 +88,7 @@ export default class TodoItem extends Component {
     }
 
     this.setState({
-      isEditing: false
+      isEditing: false,
     });
   }
 
@@ -113,14 +113,14 @@ export default class TodoItem extends Component {
   render() {
     const {
       canDrop, connectDragSource, connectDropTarget, isComplete, isDragging,
-      isOver, label
+      isOver, label,
     } = this.props;
 
     const classes = classnames({
       completed: isComplete,
       dragging: isDragging,
       over: isOver && canDrop,
-      editing: this.state.isEditing
+      editing: this.state.isEditing,
     });
 
     return connectDragSource(connectDropTarget(

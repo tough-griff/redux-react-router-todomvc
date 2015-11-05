@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 // import fetchMock from 'fetch-mock';
 import expect from 'expect.js';
 
@@ -37,7 +38,7 @@ describe('TodoActions', () => {
   context('clearCompleteTodos', () => {
     const subject = TodoActions.clearCompleteTodos();
     const action = {
-      type: Actions.CLEAR_COMPLETE_TODOS
+      type: Actions.CLEAR_COMPLETE_TODOS,
     };
 
     it('creates the correct action', () => {
@@ -74,7 +75,7 @@ describe('TodoActions', () => {
     const subject = TodoActions.markAllTodos(isComplete);
     const action = {
       type: Actions.MARK_ALL_TODOS,
-      payload: { isComplete }
+      payload: { isComplete },
     };
 
     it('creates the correct action', () => {
@@ -88,7 +89,7 @@ describe('TodoActions', () => {
     const subject = TodoActions.moveTodo(at, to);
     const action = {
       type: Actions.MOVE_TODO,
-      payload: { at, to }
+      payload: { at, to },
     };
 
     it('creates the correct action', () => {
