@@ -9,11 +9,16 @@ import { TodoHeader, TodoList } from '.';
 import { TodoActions } from '../actions';
 
 function mapStateToProps(state) {
-  return { todos: state.todos.get('todoList') };
+  return {
+    router: state.router,
+    todos: state.todos.get('todoList'),
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(TodoActions, dispatch) };
+  return {
+    actions: bindActionCreators(TodoActions, dispatch),
+  };
 }
 
 /**
@@ -27,7 +32,7 @@ function mapDispatchToProps(dispatch) {
 export default class TodoApp extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired,
     todos: PropTypes.instanceOf(List).isRequired,
   }
 
@@ -36,8 +41,8 @@ export default class TodoApp extends Component {
   }
 
   render() {
-    const { actions, location, todos } = this.props;
-    const filter = location.pathname.replace('/todos/', '');
+    const { actions, router, todos } = this.props;
+    const filter = router.location.pathname.replace('/todos/', '');
 
     return (
       <div>

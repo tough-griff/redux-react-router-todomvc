@@ -78,11 +78,11 @@ export default class TodoItem extends Component {
     });
   }
 
-  onSave = (label) => {
-    const { deleteTodo, editTodo, id } = this.props;
+  onSave = (newLabel) => {
+    const { deleteTodo, editTodo, id, label } = this.props;
 
-    if (label.length) {
-      editTodo(id, label);
+    if (newLabel.length) {
+      if (newLabel !== label) editTodo(id, newLabel);
     } else {
       deleteTodo(id);
     }
