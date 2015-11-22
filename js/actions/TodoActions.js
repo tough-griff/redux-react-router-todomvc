@@ -1,21 +1,9 @@
 import 'isomorphic-fetch';
+import checkStatus from 'fetch-check-http-status';
 
 import { Actions } from '../constants';
 
 const SERVER_URL = '/api';
-
-/**
- * Check for HTTP error responses.
- */
-function check(response) {
-  const { status, statusText } = response;
-
-  if (status >= 200 && status < 300) return response;
-
-  const error = new Error(statusText);
-  error.response = response;
-  return error;
-}
 
 /**
  * Parse the response's JSON.
@@ -38,7 +26,7 @@ const TodoActions = {
           label,
         }),
       })
-      .then(check)
+      .then(checkStatus)
       .then(parse)
       .then(todo => dispatch({
         type: Actions.ADD_TODO,
@@ -64,7 +52,7 @@ const TodoActions = {
       return fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'DELETE',
       })
-      .then(check)
+      .then(checkStatus)
       .then(() => dispatch({
         type: Actions.DELETE_TODO,
         payload: { id },
@@ -87,7 +75,7 @@ const TodoActions = {
         },
         body: JSON.stringify({ label }),
       })
-      .then(check)
+      .then(checkStatus)
       .then(parse)
       .then(todo => dispatch({
         type: Actions.EDIT_TODO,
@@ -109,7 +97,7 @@ const TodoActions = {
       return fetch(`${SERVER_URL}/todos`, {
         method: 'GET',
       })
-      .then(check)
+      .then(checkStatus)
       .then(parse)
       .then(todos => dispatch({
         type: Actions.FETCH_ALL_TODOS,
@@ -133,7 +121,7 @@ const TodoActions = {
         },
         body: JSON.stringify({ isComplete }),
       })
-      .then(check)
+      .then(checkStatus)
       .then(parse)
       .then(todo => dispatch({
         type: Actions.MARK_TODO,
