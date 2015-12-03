@@ -31,8 +31,7 @@ export default class TodoList extends Component {
     if (!size) return null;
 
     const incompleteCount = size - completeCount;
-    const maxIndex = Seq(todos).reduce((max, todo) => {
-      const { index } = todo;
+    const maxIndex = Seq(todos).reduce((max, { index }) => {
       return (index > max) ? index : max;
     }, 0);
 
@@ -86,8 +85,8 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = Seq(todos).reduce((count, todo) => {
-      return (todo.isComplete) ? count + 1 : count;
+    const completeCount = Seq(todos).reduce((count, { isComplete }) => {
+      return (isComplete) ? count + 1 : count;
     }, 0);
 
     return (

@@ -16,16 +16,16 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 
 // Configure the logger
 app.use(logger('dev', {
-  skip: req => {
-    return process.env.NODE_ENV === 'test' || req.path === '/favicon.ico';
-  }
+  skip(req) {
+    return nodeEnv === 'test' || req.path === '/favicon.ico';
+  },
 }));
 
 // === Configure Webpack middleware ===
 if (nodeEnv === 'development') {
   app.use(webpackDevMiddleware(compiler, {
     noInfo: true,
-    publicPath: config.output.publicPath
+    publicPath: config.output.publicPath,
   }));
 
   app.use(webpackHotMiddleware(compiler));

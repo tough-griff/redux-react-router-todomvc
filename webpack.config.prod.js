@@ -30,11 +30,7 @@ module.exports = {
       {
         loader: 'babel',
         test: /\.jsx?$/,
-        exclude: /node_modules/,
-        query: {
-          optional: ['runtime'],
-          stage: 0
-        }
+        exclude: /node_modules/
       }
     ]
   },
