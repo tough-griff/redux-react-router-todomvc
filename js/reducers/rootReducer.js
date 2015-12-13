@@ -3,9 +3,7 @@ import { routerStateReducer } from 'redux-router';
 
 import { todos } from '.';
 
-const rootReducer = combineReducers({
+export default combineReducers({
   router: routerStateReducer,
   todos,
 });
-
-export default rootReducer;

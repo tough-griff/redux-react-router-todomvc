@@ -6,5 +6,9 @@
       "newIsCap": true,
       "capIsNew": false
     }]
+  },
+  "globals": {
+    "__DEVELOPMENT__": true,
+    "__DEVTOOLS__": true
   }
 }

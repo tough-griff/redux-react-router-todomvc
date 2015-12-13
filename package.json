@@ -61,6 +61,7 @@
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
     "redbox-react": "^1.2.0",
+    "redux-devtools": "^2.1.5",
     "rimraf": "^2.4.4",
     "sinon": "^1.17.2",
     "webpack": "^1.12.9",
