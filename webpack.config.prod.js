@@ -46,7 +46,6 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       __DEVELOPMENT__: false,
-      __DEVTOOLS__: false,
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }

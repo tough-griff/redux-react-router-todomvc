@@ -8,7 +8,6 @@
     }]
   },
   "globals": {
-    "__DEVELOPMENT__": true,
-    "__DEVTOOLS__": true
+    "__DEVELOPMENT__": true
   }
 }
