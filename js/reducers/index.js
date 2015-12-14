@@ -1,3 +1,10 @@
-export todos from './todos';
+import { combineReducers } from 'redux';
+import { routerStateReducer } from 'redux-router';
 
-export default from './rootReducer';
+import todos from './todos';
+
+export { todos };
+export default combineReducers({
+  router: routerStateReducer,
+  todos,
+});
