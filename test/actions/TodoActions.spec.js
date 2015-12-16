@@ -1,38 +1,50 @@
 /* eslint-env mocha */
-// import fetchMock from 'fetch-mock';
+import 'isomorphic-fetch';
 import expect from 'expect.js';
+import fetchMock from 'fetch-mock';
+
+import mockStore from '../helpers/mockStore';
 
 import { Actions } from '../../js/constants';
 import { TodoActions } from '../../js/actions';
 
-// TODO: fixme
-// fetchMock.registerRoute([{
-  // name: 'addTodo',
-  // matcher: 'http://localhost:9090/todos',
-  // response: {
-    // body: {
-      // todo: 'example'
-    // }
-  // }
-// }]);
-
 describe('TodoActions', () => {
+  afterEach(() => {
+    fetchMock.reset();
+  });
+
   it('exposes an object', () => {
     expect(TodoActions).to.be.an('object');
   });
 
   context('addTodo', () => {
-    it('returns a thunk', () => {
-      expect(TodoActions.addTodo()).to.be.a('function');
+    const label = 'fake todo';
+    const subject = TodoActions.addTodo('label');
+    const action = {
+      type: 'ADD_TODO',
+      payload: { todo: { label } },
+    };
+
+    before(() => {
+      fetchMock.mock('/api/todos', 'POST', { label });
     });
 
-    // TODO: fixme, and stub out a dispatch method.
-    // it('should post to the addTodo path', () => {
-      // fetchMock.mock({ greed: 'bad' });
-      // TodoActions.addTodo('label')();
-      // expect(fetchMock.called('addTodo')).to.be(true);
-      // fetchMock.restore();
-    // });
+    after(() => {
+      fetchMock.restore();
+    });
+
+    it('returns a thunk', () => {
+      expect(subject).to.be.a('function');
+    });
+
+    it('makes the correct web request', () => {
+      subject();
+      expect(fetchMock.called('/api/todos')).to.be(true);
+    });
+
+    it('dispatches the correct action', (done) => {
+      mockStore({}, [action], done).dispatch(subject);
+    });
   });
 
   context('clearCompleteTodos', () => {
@@ -47,26 +59,124 @@ describe('TodoActions', () => {
   });
 
   context('deleteTodo', () => {
+    const id = 5;
+    const subject = TodoActions.deleteTodo(id);
+    const action = {
+      type: 'DELETE_TODO',
+      payload: { id },
+    };
+
+    before(() => {
+      fetchMock.mock(`/api/todos/${id}`, 'DELETE');
+    });
+
+    after(() => {
+      fetchMock.restore();
+    });
+
     it('returns a thunk', () => {
-      expect(TodoActions.deleteTodo()).to.be.a('function');
+      expect(subject).to.be.a('function');
+    });
+
+    it('makes the correct web request', () => {
+      subject();
+      expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
+    });
+
+    it('dispatches the correct action', (done) => {
+      mockStore({}, [action], done).dispatch(subject);
     });
   });
 
   context('editTodo', () => {
+    const id = 5;
+    const label = 'fake todo';
+    const subject = TodoActions.editTodo(id, label);
+    const action = {
+      type: 'EDIT_TODO',
+      payload: { id, label },
+    };
+
+    before(() => {
+      fetchMock.mock(`/api/todos/${id}`, 'PATCH', { id, label });
+    });
+
+    after(() => {
+      fetchMock.restore();
+    });
+
     it('returns a thunk', () => {
-      expect(TodoActions.editTodo()).to.be.a('function');
+      expect(subject).to.be.a('function');
+    });
+
+    it('makes the correct web request', () => {
+      subject();
+      expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
+    });
+
+    it('dispatches the correct action', (done) => {
+      mockStore({}, [action], done).dispatch(subject);
     });
   });
 
   context('fetchAllTodos', () => {
+    const todos = [{ label: 'fake1' }, { label: 'fake2' }];
+    const subject = TodoActions.fetchAllTodos();
+    const action = {
+      type: 'FETCH_ALL_TODOS',
+      payload: { todos },
+    };
+
+    before(() => {
+      fetchMock.mock('/api/todos', 'GET', todos);
+    });
+
+    after(() => {
+      fetchMock.restore();
+    });
+
     it('returns a thunk', () => {
-      expect(TodoActions.fetchAllTodos()).to.be.a('function');
+      expect(subject).to.be.a('function');
+    });
+
+    it('makes the correct web request', () => {
+      subject();
+      expect(fetchMock.called('/api/todos')).to.be(true);
+    });
+
+    it('dispatches the correct action', (done) => {
+      mockStore({}, [action], done).dispatch(subject);
     });
   });
 
   context('markTodo', () => {
+    const id = 5;
+    const isComplete = true;
+    const subject = TodoActions.markTodo(id, isComplete);
+    const action = {
+      type: 'MARK_TODO',
+      payload: { id, isComplete },
+    };
+
+    before(() => {
+      fetchMock.mock(`/api/todos/${id}`, 'PATCH', { id, isComplete });
+    });
+
+    after(() => {
+      fetchMock.restore();
+    });
+
     it('returns a thunk', () => {
-      expect(TodoActions.markTodo()).to.be.a('function');
+      expect(subject).to.be.a('function');
+    });
+
+    it('makes the correct web request', () => {
+      subject();
+      expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
+    });
+
+    it('dispatches the correct action', (done) => {
+      mockStore({}, [action], done).dispatch(subject);
     });
   });
 
