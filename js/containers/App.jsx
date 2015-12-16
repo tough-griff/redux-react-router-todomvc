@@ -5,7 +5,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { TodoHeader, TodoList } from '.';
+import { Header, TodoList } from '../components';
 import { TodoActions } from '../actions';
 
 function mapStateToProps(state) {
@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch) {
  */
 @DragDropContext(HTML5Backend)
 @connect(mapStateToProps, mapDispatchToProps)
-export default class TodoApp extends Component {
+export default class App extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
@@ -42,11 +42,11 @@ export default class TodoApp extends Component {
 
   render() {
     const { actions, router, todos } = this.props;
-    const filter = router.location.pathname.replace('/todos/', '');
+    const filter = router.location.pathname.replace('/', '');
 
     return (
       <div>
-        <TodoHeader
+        <Header
           addTodo={actions.addTodo}
         />
         <TodoList

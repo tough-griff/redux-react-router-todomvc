@@ -2,7 +2,7 @@
 import expect from 'expect.js';
 import { List, Map, Record } from 'immutable';
 
-import { todos } from '../../js/reducers';
+import todos from '../../js/reducers/todos';
 
 describe('todos', () => {
   const Todo = Record({

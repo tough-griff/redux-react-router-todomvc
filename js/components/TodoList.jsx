@@ -1,7 +1,7 @@
 import { List, Seq } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
-import { TodoFooter, TodoItem } from '.';
+import { Footer, Todo } from '.';
 
 const FILTERS = {
   all: () => true,
@@ -36,7 +36,7 @@ export default class TodoList extends Component {
     }, 0);
 
     return (
-      <TodoFooter
+      <Footer
         clearCompleteTodos={clearCompleteTodos}
         completeCount={completeCount}
         currentFilter={filter}
@@ -61,7 +61,7 @@ export default class TodoList extends Component {
     const todoObj = todo.toJS();
 
     return (
-      <TodoItem
+      <Todo
         key={`todo-${todo.id}`}
         deleteTodo={deleteTodo}
         editTodo={editTodo}

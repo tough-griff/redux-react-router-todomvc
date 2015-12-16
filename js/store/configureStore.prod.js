@@ -4,10 +4,11 @@ import { reduxReactRouter } from 'redux-router';
 import thunk from 'redux-thunk';
 
 import rootReducer from '../reducers';
+import routes from '../routes';
 
 const finalCreateStore = compose(
   applyMiddleware(thunk),
-  reduxReactRouter({ createHistory }),
+  reduxReactRouter({ createHistory, routes }),
 )(createStore);
 
 export default function configureStore(initialState) {

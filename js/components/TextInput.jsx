@@ -5,7 +5,7 @@ const ENTER_KEY_CODE = 13;
 /**
  * General purpose text input component.
  */
-export default class TodoTextInput extends Component {
+export default class TextInput extends Component {
   static propTypes = {
     className: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,

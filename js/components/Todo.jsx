@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { DragSource, DropTarget } from 'react-dnd';
 
-import { TodoTextInput } from '.';
+import { TextInput } from '.';
 import { Items } from '../constants';
 
 const target = {
@@ -45,7 +45,7 @@ function sourceCollect(connect, monitor) {
  */
 @DropTarget(Items.TODO, target, targetCollect)
 @DragSource(Items.TODO, source, sourceCollect)
-export default class TodoItem extends Component {
+export default class Todo extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,
     connectDragSource: PropTypes.func.isRequired,
@@ -102,7 +102,7 @@ export default class TodoItem extends Component {
     if (!this.state.isEditing) return null;
 
     return (
-      <TodoTextInput
+      <TextInput
         className="edit"
         onSave={this.onSave}
         value={this.props.label}

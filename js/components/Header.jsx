@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
-import { TodoTextInput } from '.';
+import { TextInput } from '.';
 
 /**
  * Wrapper component rendering header text as well as the new Todo input
  * component.
  */
-export default class TodoHeader extends Component {
+export default class Header extends Component {
   static propTypes = {
     addTodo: PropTypes.func.isRequired,
   }
@@ -21,7 +21,7 @@ export default class TodoHeader extends Component {
     return (
       <header className="header">
         <h1>Todos</h1>
-        <TodoTextInput
+        <TextInput
           className="new-todo"
           onSave={this.onSave}
           placeholder="What needs to be done?"

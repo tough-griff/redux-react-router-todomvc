@@ -4,12 +4,12 @@ import sinon from 'sinon';
 
 import setup from '../helpers/componentSetup';
 
-import { TodoHeader } from '../../js/components';
+import { Header } from '../../js/components';
 
-describe('TodoHeader', () => {
+describe('Header', () => {
   it('should render correctly', () => {
     const testProps = { addTodo: sinon.spy() };
-    const { output } = setup(TodoHeader, testProps);
+    const { output } = setup(Header, testProps);
 
     expect(output.type).to.equal('header');
     expect(output.props.className).to.equal('header');
@@ -17,7 +17,7 @@ describe('TodoHeader', () => {
 
   it('should call addTodo on save correctly', () => {
     const testProps = { addTodo: sinon.spy() };
-    const { output, props } = setup(TodoHeader, testProps);
+    const { output, props } = setup(Header, testProps);
     const textInput = output.props.children[1];
 
     textInput.props.onSave('');

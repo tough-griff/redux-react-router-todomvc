@@ -4,8 +4,9 @@ import { persistState } from 'redux-devtools';
 import { reduxReactRouter } from 'redux-router';
 import thunk from 'redux-thunk';
 
-import DevTools from '../containers/DevTools';
+import { DevTools } from '../containers';
 import rootReducer from '../reducers';
+import routes from '../routes';
 
 function getDebugSessionKey() {
   const matches = window.location.href.match(/[?&]debug_session=([^&]+)\b/);
@@ -14,7 +15,7 @@ function getDebugSessionKey() {
 
 const finalCreateStore = compose(
   applyMiddleware(thunk),
-  reduxReactRouter({ createHistory }),
+  reduxReactRouter({ createHistory, routes }),
   DevTools.instrument(),
   persistState(getDebugSessionKey()),
 )(createStore);

@@ -30,7 +30,7 @@ function collect(connect, monitor) {
  * 'Clear complete' button and complete tasks counter.
  */
 @DropTarget(Items.TODO, target, collect)
-export default class TodoFooter extends Component {
+export default class Footer extends Component {
   static propTypes = {
     canDrop: PropTypes.bool.isRequired,
     clearCompleteTodos: PropTypes.func.isRequired,
@@ -72,7 +72,7 @@ export default class TodoFooter extends Component {
 
           return (
             <li key={filter}>
-              <Link className={classes} to={`/todos/${filter}`}>
+              <Link className={classes} to={`/${filter}`}>
                 {filterWord}
               </Link>
             </li>

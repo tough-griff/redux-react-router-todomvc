@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Provider } from 'react-redux';
+import { ReduxRouter } from 'redux-router';
 
-import { TodoRouter } from '../components';
 import DevTools from './DevTools';
 
 export default class Root extends Component {
@@ -13,7 +13,7 @@ export default class Root extends Component {
     return (
       <Provider store={this.props.store}>
         <div>
-          <TodoRouter />
+          <ReduxRouter />
           <DevTools />
         </div>
       </Provider>
