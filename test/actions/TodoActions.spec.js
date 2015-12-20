@@ -41,7 +41,7 @@ describe('TodoActions', function () {
       expect(fetchMock.called('/api/todos')).to.be(true);
     });
 
-    it('dispatches the correct action', (done) => {
+    it('dispatches the correct action', function (done) {
       mockStore({}, [action], done).dispatch(subject);
     });
   });
@@ -82,7 +82,7 @@ describe('TodoActions', function () {
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
 
-    it('dispatches the correct action', (done) => {
+    it('dispatches the correct action', function (done) {
       mockStore({}, [action], done).dispatch(subject);
     });
   });
@@ -113,7 +113,7 @@ describe('TodoActions', function () {
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
 
-    it('dispatches the correct action', (done) => {
+    it('dispatches the correct action', function (done) {
       mockStore({}, [action], done).dispatch(subject);
     });
   });
@@ -143,7 +143,7 @@ describe('TodoActions', function () {
       expect(fetchMock.called('/api/todos')).to.be(true);
     });
 
-    it('dispatches the correct action', (done) => {
+    it('dispatches the correct action', function (done) {
       mockStore({}, [action], done).dispatch(subject);
     });
   });
@@ -174,7 +174,7 @@ describe('TodoActions', function () {
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
 
-    it('dispatches the correct action', (done) => {
+    it('dispatches the correct action', function (done) {
       mockStore({}, [action], done).dispatch(subject);
     });
   });
