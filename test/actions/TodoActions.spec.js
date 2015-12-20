@@ -5,8 +5,7 @@ import fetchMock from 'fetch-mock';
 
 import mockStore from '../helpers/mockStore';
 
-import { Actions } from '../../js/constants';
-import { TodoActions } from '../../js/actions';
+import TodoActions from '../../js/actions/TodoActions';
 
 describe('TodoActions', () => {
   afterEach(() => {
@@ -50,7 +49,7 @@ describe('TodoActions', () => {
   context('clearCompleteTodos', () => {
     const subject = TodoActions.clearCompleteTodos();
     const action = {
-      type: Actions.CLEAR_COMPLETE_TODOS,
+      type: 'CLEAR_COMPLETE_TODOS',
     };
 
     it('creates the correct action', () => {
@@ -184,7 +183,7 @@ describe('TodoActions', () => {
     const isComplete = true;
     const subject = TodoActions.markAllTodos(isComplete);
     const action = {
-      type: Actions.MARK_ALL_TODOS,
+      type: 'MARK_ALL_TODOS',
       payload: { isComplete },
     };
 
@@ -198,7 +197,7 @@ describe('TodoActions', () => {
     const to = 8;
     const subject = TodoActions.moveTodo(at, to);
     const action = {
-      type: Actions.MOVE_TODO,
+      type: 'MOVE_TODO',
       payload: { at, to },
     };
 

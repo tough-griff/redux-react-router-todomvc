@@ -33,6 +33,16 @@ describe('todos', () => {
     expect(todos).to.be.a('function');
   });
 
+  it('returns the initial state', () => {
+    expect(todos(undefined, {})).to.eql(Map({
+      todoList: List(),
+    }));
+  });
+
+  it('passes state through with no appropriate action reducer', () => {
+    expect(todos(state, { type: 'NONSENSE' })).to.equal(state);
+  });
+
   context('addTodo', () => {
     const action = {
       type: 'ADD_TODO',
@@ -172,11 +182,15 @@ describe('todos', () => {
       },
     };
 
-    it('modifies the todo list indices correctly', () => {
-      const subject = todos(state, action).get('todoList');
+    // Adds a third todo with `index` 0 to ensure indices below `to` do not increment.
+    const newState = state.update('todoList', todoList => todoList.push(Todo()));
 
-      expect(subject.first().get('index')).to.equal(2);
-      expect(subject.last().get('index')).to.equal(1);
+    it('modifies the todo list indices correctly', () => {
+      const subject = todos(newState, action).get('todoList');
+
+      expect(subject.get(0).get('index')).to.equal(2);
+      expect(subject.get(1).get('index')).to.equal(1);
+      expect(subject.get(2).get('index')).to.equal(0);
     });
   });
 });
