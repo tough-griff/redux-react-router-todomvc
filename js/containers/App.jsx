@@ -24,8 +24,6 @@ function mapDispatchToProps(dispatch) {
 /**
  * Top-level application component. Connects to the Redux `Provider` stores,
  * passing their state through as props.
- * @see App
- * @see todos
  */
 @DragDropContext(HTML5Backend)
 @connect(mapStateToProps, mapDispatchToProps)
