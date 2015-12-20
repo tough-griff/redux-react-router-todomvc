@@ -7,11 +7,11 @@ import setup from '../helpers/componentSetup';
 import Header from '../../js/components/Header';
 import { TextInput } from '../../js/components';
 
-describe('Header', () => {
+describe('Header', function () {
   const addTodo = sinon.spy();
   const { output } = setup(Header, { addTodo });
 
-  it('should render correctly', () => {
+  it('should render correctly', function () {
     const [h1, textInput] = output.props.children;
 
     expect(output.type).to.equal('header');
@@ -26,7 +26,7 @@ describe('Header', () => {
     expect(textInput.props.placeholder).to.equal('What needs to be done?');
   });
 
-  it('should call addTodo on save correctly', () => {
+  it('should call addTodo on save correctly', function () {
     const textInput = output.props.children[1];
 
     textInput.props.onSave('');

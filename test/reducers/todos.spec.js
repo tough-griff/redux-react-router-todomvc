@@ -4,7 +4,7 @@ import { List, Map, Record } from 'immutable';
 
 import todos from '../../js/reducers/todos';
 
-describe('todos', () => {
+describe('todos', function () {
   const Todo = Record({
     id: 0,
     index: 0,
@@ -29,21 +29,21 @@ describe('todos', () => {
     ]),
   });
 
-  it('exposes a function', () => {
+  it('exposes a function', function () {
     expect(todos).to.be.a('function');
   });
 
-  it('returns the initial state', () => {
+  it('returns the initial state', function () {
     expect(todos(undefined, {})).to.eql(Map({
       todoList: List(),
     }));
   });
 
-  it('passes state through with no appropriate action reducer', () => {
+  it('passes state through with no appropriate action reducer', function () {
     expect(todos(state, { type: 'NONSENSE' })).to.equal(state);
   });
 
-  context('addTodo', () => {
+  context('addTodo', function () {
     const action = {
       type: 'ADD_TODO',
       payload: {
@@ -55,26 +55,26 @@ describe('todos', () => {
       },
     };
 
-    it('appends a new todo', () => {
+    it('appends a new todo', function () {
       const subject = todos(state, action).get('todoList');
       expect(subject.size).to.equal(3);
       expect(subject.last().get('label')).to.equal('New');
     });
   });
 
-  context('clearCompleteTodos', () => {
+  context('clearCompleteTodos', function () {
     const action = {
       type: 'CLEAR_COMPLETE_TODOS',
     };
 
-    it('removes todos where isComplete = true', () => {
+    it('removes todos where isComplete = true', function () {
       const subject = todos(state, action).get('todoList');
       expect(subject.size).to.equal(1);
       expect(subject.every(todo => !todo.get('isComplete'))).to.be(true);
     });
   });
 
-  context('deleteTodo', () => {
+  context('deleteTodo', function () {
     const action = {
       type: 'DELETE_TODO',
       payload: {
@@ -82,14 +82,14 @@ describe('todos', () => {
       },
     };
 
-    it('removes the correct todo', () => {
+    it('removes the correct todo', function () {
       const subject = todos(state, action).get('todoList');
       expect(subject.size).to.equal(1);
       expect(subject.every(todo => todo.get('id') !== 2)).to.be(true);
     });
   });
 
-  context('editTodo', () => {
+  context('editTodo', function () {
     const action = {
       type: 'EDIT_TODO',
       payload: {
@@ -98,7 +98,7 @@ describe('todos', () => {
       },
     };
 
-    it('modifies the correct todo', () => {
+    it('modifies the correct todo', function () {
       const subject = todos(state, action)
         .get('todoList')
         .find(todo => todo.get('id') === 2);
@@ -108,7 +108,7 @@ describe('todos', () => {
   });
 
 
-  context('fetchAllTodos', () => {
+  context('fetchAllTodos', function () {
     const action = {
       type: 'FETCH_ALL_TODOS',
       payload: {
@@ -133,14 +133,14 @@ describe('todos', () => {
       },
     };
 
-    it('sets todoList to the new fetched todos', () => {
+    it('sets todoList to the new fetched todos', function () {
       const subject = todos(state, action).get('todoList');
       expect(subject.size).to.equal(4);
       expect(subject.every(todo => todo.get('isComplete'))).to.be(true);
     });
   });
 
-  context('markAllTodos', () => {
+  context('markAllTodos', function () {
     const action = {
       type: 'MARK_ALL_TODOS',
       payload: {
@@ -149,13 +149,13 @@ describe('todos', () => {
       },
     };
 
-    it('modifies all todos', () => {
+    it('modifies all todos', function () {
       const subject = todos(state, action).get('todoList');
       expect(subject.every(todo => todo.get('isComplete'))).to.be(true);
     });
   });
 
-  context('markTodo', () => {
+  context('markTodo', function () {
     const action = {
       type: 'MARK_TODO',
       payload: {
@@ -164,7 +164,7 @@ describe('todos', () => {
       },
     };
 
-    it('modifies the correct todo', () => {
+    it('modifies the correct todo', function () {
       const subject = todos(state, action)
         .get('todoList')
         .find(todo => todo.get('id') === 2);
@@ -173,7 +173,7 @@ describe('todos', () => {
     });
   });
 
-  context('moveTodo', () => {
+  context('moveTodo', function () {
     const action = {
       type: 'MOVE_TODO',
       payload: {
@@ -185,7 +185,7 @@ describe('todos', () => {
     // Adds a third todo with `index` 0 to ensure indices below `to` do not increment.
     const newState = state.update('todoList', todoList => todoList.push(Todo()));
 
-    it('modifies the todo list indices correctly', () => {
+    it('modifies the todo list indices correctly', function () {
       const subject = todos(newState, action).get('todoList');
 
       expect(subject.get(0).get('index')).to.equal(2);

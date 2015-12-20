@@ -7,16 +7,16 @@ import mockStore from '../helpers/mockStore';
 
 import TodoActions from '../../js/actions/TodoActions';
 
-describe('TodoActions', () => {
-  afterEach(() => {
+describe('TodoActions', function () {
+  afterEach(function () {
     fetchMock.reset();
   });
 
-  it('exposes an object', () => {
+  it('exposes an object', function () {
     expect(TodoActions).to.be.an('object');
   });
 
-  context('addTodo', () => {
+  context('addTodo', function () {
     const label = 'fake todo';
     const subject = TodoActions.addTodo('label');
     const action = {
@@ -24,19 +24,19 @@ describe('TodoActions', () => {
       payload: { todo: { label } },
     };
 
-    before(() => {
+    before(function () {
       fetchMock.mock('/api/todos', 'POST', { label });
     });
 
-    after(() => {
+    after(function () {
       fetchMock.restore();
     });
 
-    it('returns a thunk', () => {
+    it('returns a thunk', function () {
       expect(subject).to.be.a('function');
     });
 
-    it('makes the correct web request', () => {
+    it('makes the correct web request', function () {
       subject();
       expect(fetchMock.called('/api/todos')).to.be(true);
     });
@@ -46,18 +46,18 @@ describe('TodoActions', () => {
     });
   });
 
-  context('clearCompleteTodos', () => {
+  context('clearCompleteTodos', function () {
     const subject = TodoActions.clearCompleteTodos();
     const action = {
       type: 'CLEAR_COMPLETE_TODOS',
     };
 
-    it('creates the correct action', () => {
+    it('creates the correct action', function () {
       expect(subject).to.eql(action);
     });
   });
 
-  context('deleteTodo', () => {
+  context('deleteTodo', function () {
     const id = 5;
     const subject = TodoActions.deleteTodo(id);
     const action = {
@@ -65,19 +65,19 @@ describe('TodoActions', () => {
       payload: { id },
     };
 
-    before(() => {
+    before(function () {
       fetchMock.mock(`/api/todos/${id}`, 'DELETE');
     });
 
-    after(() => {
+    after(function () {
       fetchMock.restore();
     });
 
-    it('returns a thunk', () => {
+    it('returns a thunk', function () {
       expect(subject).to.be.a('function');
     });
 
-    it('makes the correct web request', () => {
+    it('makes the correct web request', function () {
       subject();
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
@@ -87,7 +87,7 @@ describe('TodoActions', () => {
     });
   });
 
-  context('editTodo', () => {
+  context('editTodo', function () {
     const id = 5;
     const label = 'fake todo';
     const subject = TodoActions.editTodo(id, label);
@@ -96,19 +96,19 @@ describe('TodoActions', () => {
       payload: { id, label },
     };
 
-    before(() => {
+    before(function () {
       fetchMock.mock(`/api/todos/${id}`, 'PATCH', { id, label });
     });
 
-    after(() => {
+    after(function () {
       fetchMock.restore();
     });
 
-    it('returns a thunk', () => {
+    it('returns a thunk', function () {
       expect(subject).to.be.a('function');
     });
 
-    it('makes the correct web request', () => {
+    it('makes the correct web request', function () {
       subject();
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
@@ -118,7 +118,7 @@ describe('TodoActions', () => {
     });
   });
 
-  context('fetchAllTodos', () => {
+  context('fetchAllTodos', function () {
     const todos = [{ label: 'fake1' }, { label: 'fake2' }];
     const subject = TodoActions.fetchAllTodos();
     const action = {
@@ -126,19 +126,19 @@ describe('TodoActions', () => {
       payload: { todos },
     };
 
-    before(() => {
+    before(function () {
       fetchMock.mock('/api/todos', 'GET', todos);
     });
 
-    after(() => {
+    after(function () {
       fetchMock.restore();
     });
 
-    it('returns a thunk', () => {
+    it('returns a thunk', function () {
       expect(subject).to.be.a('function');
     });
 
-    it('makes the correct web request', () => {
+    it('makes the correct web request', function () {
       subject();
       expect(fetchMock.called('/api/todos')).to.be(true);
     });
@@ -148,7 +148,7 @@ describe('TodoActions', () => {
     });
   });
 
-  context('markTodo', () => {
+  context('markTodo', function () {
     const id = 5;
     const isComplete = true;
     const subject = TodoActions.markTodo(id, isComplete);
@@ -157,19 +157,19 @@ describe('TodoActions', () => {
       payload: { id, isComplete },
     };
 
-    before(() => {
+    before(function () {
       fetchMock.mock(`/api/todos/${id}`, 'PATCH', { id, isComplete });
     });
 
-    after(() => {
+    after(function () {
       fetchMock.restore();
     });
 
-    it('returns a thunk', () => {
+    it('returns a thunk', function () {
       expect(subject).to.be.a('function');
     });
 
-    it('makes the correct web request', () => {
+    it('makes the correct web request', function () {
       subject();
       expect(fetchMock.called(`/api/todos/${id}`)).to.be(true);
     });
@@ -179,7 +179,7 @@ describe('TodoActions', () => {
     });
   });
 
-  context('markAllTodos', () => {
+  context('markAllTodos', function () {
     const isComplete = true;
     const subject = TodoActions.markAllTodos(isComplete);
     const action = {
@@ -187,12 +187,12 @@ describe('TodoActions', () => {
       payload: { isComplete },
     };
 
-    it('creates the correct action', () => {
+    it('creates the correct action', function () {
       expect(subject).to.eql(action);
     });
   });
 
-  context('moveTodo', () => {
+  context('moveTodo', function () {
     const at = 5;
     const to = 8;
     const subject = TodoActions.moveTodo(at, to);
@@ -201,7 +201,7 @@ describe('TodoActions', () => {
       payload: { at, to },
     };
 
-    it('creates the correct action', () => {
+    it('creates the correct action', function () {
       expect(subject).to.eql(action);
     });
   });
