@@ -1,4 +1,4 @@
-import { List, Seq } from 'immutable';
+import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 
 import { Footer, Todo } from '.';
@@ -31,7 +31,7 @@ export default class TodoList extends Component {
     if (!size) return null;
 
     const incompleteCount = size - completeCount;
-    const maxIndex = Seq(todos).reduce((max, { index }) => {
+    const maxIndex = todos.reduce((max, { index }) => {
       return (index > max) ? index : max;
     }, 0);
 
@@ -50,7 +50,8 @@ export default class TodoList extends Component {
   renderListItems() {
     const { filter, todos } = this.props;
 
-    return Seq(todos).filter(FILTERS[filter])
+    return todos.toSeq()
+      .filter(FILTERS[filter])
       .sortBy(todo => todo.index)
       .map(this.renderTodo)
       .toArray();
@@ -85,7 +86,7 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = Seq(todos).reduce((count, { isComplete }) => {
+    const completeCount = todos.reduce((count, { isComplete }) => {
       return (isComplete) ? count + 1 : count;
     }, 0);
 

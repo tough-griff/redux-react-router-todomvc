@@ -1,4 +1,3 @@
-/* eslint-env mocha */
 import expect from 'expect.js';
 import sinon from 'sinon';
 

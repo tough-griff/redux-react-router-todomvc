@@ -11,7 +11,7 @@ import { TodoActions } from '../actions';
 function mapStateToProps(state) {
   return {
     router: state.router,
-    todos: state.todos.get('todoList'),
+    todos: state.todos,
   };
 }
 

@@ -1,42 +1,37 @@
-/* eslint-env mocha */
 import expect from 'expect.js';
-import { List, Map, Record } from 'immutable';
+import { List, Record } from 'immutable';
 
 import todos from '../../js/reducers/todos';
 
 describe('todos', function () {
-  const Todo = Record({
+  const Todo = new Record({
     id: 0,
     index: 0,
     isComplete: false,
     label: 'new todo',
   });
 
-  const state = Map({
-    todoList: List([
-      Todo({
-        id: 1,
-        index: 1,
-        isComplete: true,
-        label: 'Hello',
-      }),
-      Todo({
-        id: 2,
-        index: 2,
-        isComplete: false,
-        label: 'World',
-      }),
-    ]),
-  });
+  const state = new List([
+    new Todo({
+      id: 1,
+      index: 1,
+      isComplete: true,
+      label: 'Hello',
+    }),
+    new Todo({
+      id: 2,
+      index: 2,
+      isComplete: false,
+      label: 'World',
+    }),
+  ]);
 
   it('exposes a function', function () {
     expect(todos).to.be.a('function');
   });
 
   it('returns the initial state', function () {
-    expect(todos(undefined, {})).to.eql(Map({
-      todoList: List(),
-    }));
+    expect(todos(undefined, {})).to.eql(new List());
   });
 
   it('passes state through with no appropriate action reducer', function () {
@@ -56,7 +51,7 @@ describe('todos', function () {
     };
 
     it('appends a new todo', function () {
-      const subject = todos(state, action).get('todoList');
+      const subject = todos(state, action);
       expect(subject.size).to.equal(3);
       expect(subject.last().get('label')).to.equal('New');
     });
@@ -68,7 +63,7 @@ describe('todos', function () {
     };
 
     it('removes todos where isComplete = true', function () {
-      const subject = todos(state, action).get('todoList');
+      const subject = todos(state, action);
       expect(subject.size).to.equal(1);
       expect(subject.every(todo => !todo.get('isComplete'))).to.be(true);
     });
@@ -83,7 +78,7 @@ describe('todos', function () {
     };
 
     it('removes the correct todo', function () {
-      const subject = todos(state, action).get('todoList');
+      const subject = todos(state, action);
       expect(subject.size).to.equal(1);
       expect(subject.every(todo => todo.get('id') !== 2)).to.be(true);
     });
@@ -100,7 +95,7 @@ describe('todos', function () {
 
     it('modifies the correct todo', function () {
       const subject = todos(state, action)
-        .get('todoList')
+
         .find(todo => todo.get('id') === 2);
 
       expect(subject.get('label')).to.equal('New label');
@@ -134,7 +129,7 @@ describe('todos', function () {
     };
 
     it('sets todoList to the new fetched todos', function () {
-      const subject = todos(state, action).get('todoList');
+      const subject = todos(state, action);
       expect(subject.size).to.equal(4);
       expect(subject.every(todo => todo.get('isComplete'))).to.be(true);
     });
@@ -150,7 +145,7 @@ describe('todos', function () {
     };
 
     it('modifies all todos', function () {
-      const subject = todos(state, action).get('todoList');
+      const subject = todos(state, action);
       expect(subject.every(todo => todo.get('isComplete'))).to.be(true);
     });
   });
@@ -166,7 +161,6 @@ describe('todos', function () {
 
     it('modifies the correct todo', function () {
       const subject = todos(state, action)
-        .get('todoList')
         .find(todo => todo.get('id') === 2);
 
       expect(subject.get('isComplete')).to.be(true);
@@ -183,10 +177,10 @@ describe('todos', function () {
     };
 
     // Adds a third todo with `index` 0 to ensure indices below `to` do not increment.
-    const newState = state.update('todoList', todoList => todoList.push(Todo()));
+    const newState = state.push(new Todo());
 
     it('modifies the todo list indices correctly', function () {
-      const subject = todos(newState, action).get('todoList');
+      const subject = todos(newState, action);
 
       expect(subject.get(0).get('index')).to.equal(2);
       expect(subject.get(1).get('index')).to.equal(1);

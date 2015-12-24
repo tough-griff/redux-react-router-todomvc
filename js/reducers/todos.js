@@ -1,84 +1,68 @@
-import { List, Map, Record } from 'immutable';
+import { List, Record, Seq } from 'immutable';
 import camelCase from 'camel-case';
 
-const Todo = Record({
+const Todo = new Record({
   id: 0,
   index: 0,
   isComplete: false,
-  label: 'new todo',
+  label: 'todo',
 });
 
 const ACTIONS_MAP = {
   addTodo(state, { todo }) {
-    return state.update('todoList', todoList => {
-      return todoList.push(Todo({ index: todo.id, ...todo }));
-    });
+    return state.push(new Todo({ index: todo.id, ...todo }));
   },
 
   clearCompleteTodos(state) {
-    return state.update('todoList', todoList => {
-      return todoList.filter(todo => !todo.get('isComplete'));
-    });
+    return state.filter(todo => !todo.get('isComplete'));
   },
 
   deleteTodo(state, { id }) {
-    return state.update('todoList', todoList => {
-      return todoList.filter(todo => todo.get('id') !== id);
-    });
+    return state.filter(todo => todo.get('id') !== id);
   },
 
   editTodo(state, { id, label }) {
-    return state.update('todoList', todoList => {
-      return todoList.map(todo => {
-        return (todo.get('id') === id)
-          ? todo.set('label', label)
-          : todo;
-      });
+    return state.map(todo => {
+      return (todo.get('id') === id)
+        ? todo.set('label', label)
+        : todo;
     });
   },
 
   fetchAllTodos(state, { todos: allTodos }) {
-    const todoList = List(allTodos).map(todo => Todo({ index: todo.id, ...todo }));
-
-    return state.set('todoList', todoList);
+    return new Seq(allTodos)
+      .map(todo => new Todo({ index: todo.id, ...todo }))
+      .toList();
   },
 
   markAllTodos(state, { isComplete }) {
-    return state.update('todoList', todoList => {
-      return todoList.map(todo => todo.set('isComplete', isComplete));
-    });
+    return state.map(todo => todo.set('isComplete', isComplete));
   },
 
   markTodo(state, { id, isComplete }) {
-    return state.update('todoList', todoList => {
-      return todoList.map(todo => {
-        return (todo.get('id') === id)
-          ? todo.set('isComplete', isComplete)
-          : todo;
-      });
+    return state.map(todo => {
+      return (todo.get('id') === id)
+        ? todo.set('isComplete', isComplete)
+        : todo;
     });
   },
 
   moveTodo(state, { at, to }) {
-    return state.update('todoList', todoList => {
-      return todoList.map(todo => {
-        let newTodo = todo;
+    return state.map(todo => {
+      let newTodo = todo;
 
-        if (todo.get('index') === at) {
-          newTodo = todo.set('index', to);
-        } else if (todo.get('index') >= to) {
-          newTodo = todo.update('index', index => index + 1);
-        }
+      if (todo.get('index') === at) {
+        newTodo = todo.set('index', to);
+      } else if (todo.get('index') >= to) {
+        newTodo = todo.update('index', index => index + 1);
+      }
 
-        return newTodo;
-      });
+      return newTodo;
     });
   },
 };
 
-const initialState = Map({
-  todoList: List(),
-});
+const initialState = new List();
 
 /**
  * If the action type corresponds to a handler in ACTIONS_MAP, return a
