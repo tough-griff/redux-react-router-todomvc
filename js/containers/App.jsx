@@ -10,7 +10,6 @@ import { TodoActions } from '../actions';
 
 function mapStateToProps(state) {
   return {
-    router: state.router,
     todos: state.todos,
   };
 }
@@ -23,15 +22,20 @@ function mapDispatchToProps(dispatch) {
 
 /**
  * Top-level application component. Connects to the Redux `Provider` stores,
- * passing their state through as props.
+ * passing their state through as props, as well as receives props from the
+ * router.
  */
 @DragDropContext(HTML5Backend)
 @connect(mapStateToProps, mapDispatchToProps)
 export default class App extends Component {
   static propTypes = {
     actions: PropTypes.object.isRequired,
-    router: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     todos: PropTypes.instanceOf(List).isRequired,
+  }
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
   }
 
   componentWillMount() {
@@ -39,8 +43,8 @@ export default class App extends Component {
   }
 
   render() {
-    const { actions, router, todos } = this.props;
-    const filter = router.location.pathname.replace('/', '');
+    const { actions, location, todos } = this.props;
+    const filter = location.pathname.replace('/', '');
 
     return (
       <div>
