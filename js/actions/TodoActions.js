@@ -18,7 +18,7 @@ const TodoActions = {
       return fetch(`${SERVER_URL}/todos`, {
         method: 'POST',
         headers: {
-          'Accepts': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -70,7 +70,7 @@ const TodoActions = {
       return fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ label }),
@@ -116,7 +116,7 @@ const TodoActions = {
       return fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ isComplete }),

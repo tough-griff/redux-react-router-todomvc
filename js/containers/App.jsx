@@ -5,8 +5,8 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Header, TodoList } from '../components';
 import { TodoActions } from '../actions';
+import { Header, TodoList } from '../components';
 
 function mapStateToProps(state) {
   return {
@@ -44,12 +44,14 @@ export default class App extends Component {
 
   render() {
     const { actions, location, todos } = this.props;
+    const { addTodo, fetchAllTodos } = actions;
     const filter = location.pathname.replace('/', '');
 
     return (
       <div>
         <Header
-          addTodo={actions.addTodo}
+          addTodo={addTodo}
+          fetchAllTodos={fetchAllTodos}
         />
         <TodoList
           actions={actions}

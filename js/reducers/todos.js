@@ -1,5 +1,5 @@
-import { List, Record, Seq } from 'immutable';
 import camelCase from 'camel-case';
+import { List, Record, Seq } from 'immutable';
 
 const Todo = new Record({
   id: 0,

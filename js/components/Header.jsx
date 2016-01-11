@@ -9,6 +9,7 @@ import { TextInput } from '.';
 export default class Header extends Component {
   static propTypes = {
     addTodo: PropTypes.func.isRequired,
+    fetchAllTodos: PropTypes.func.isRequired,
   }
 
   onSave = (label) => {
@@ -20,7 +21,7 @@ export default class Header extends Component {
   render() {
     return (
       <header className="header">
-        <h1>Todos</h1>
+        <h1 onDoubleClick={this.props.fetchAllTodos}>Todos</h1>
         <TextInput
           className="new-todo"
           onSave={this.onSave}
