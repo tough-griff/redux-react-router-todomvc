@@ -26,7 +26,7 @@ describe('Header', function () {
     expect(textInput.props.placeholder).to.equal('What needs to be done?');
   });
 
-  context('#onSave', function () {
+  describe('#onSave()', function () {
     it('should call addTodo correctly', function () {
       textInput.props.onSave('');
       expect(addTodo.called).to.be(false);

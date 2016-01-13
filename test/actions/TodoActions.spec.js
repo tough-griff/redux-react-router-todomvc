@@ -15,9 +15,9 @@ describe('TodoActions', function () {
     expect(TodoActions).to.be.an('object');
   });
 
-  context('addTodo', function () {
+  describe('.addTodo()', function () {
     const label = 'fake todo';
-    const subject = TodoActions.addTodo('label');
+    const subject = TodoActions.addTodo(label);
     const action = {
       type: 'ADD_TODO',
       payload: { todo: { label } },
@@ -45,7 +45,7 @@ describe('TodoActions', function () {
     });
   });
 
-  context('clearCompleteTodos', function () {
+  describe('.clearCompleteTodos()', function () {
     const subject = TodoActions.clearCompleteTodos();
     const action = {
       type: 'CLEAR_COMPLETE_TODOS',
@@ -56,7 +56,7 @@ describe('TodoActions', function () {
     });
   });
 
-  context('deleteTodo', function () {
+  describe('.deleteTodo()', function () {
     const id = 5;
     const subject = TodoActions.deleteTodo(id);
     const action = {
@@ -65,7 +65,7 @@ describe('TodoActions', function () {
     };
 
     before(function () {
-      fetchMock.mock(`/api/todos/${id}`, 'DELETE');
+      fetchMock.mock(`/api/todos/${id}`, 'DELETE', {});
     });
 
     after(function () {
@@ -86,7 +86,7 @@ describe('TodoActions', function () {
     });
   });
 
-  context('editTodo', function () {
+  describe('.editTodo()', function () {
     const id = 5;
     const label = 'fake todo';
     const subject = TodoActions.editTodo(id, label);
@@ -117,7 +117,7 @@ describe('TodoActions', function () {
     });
   });
 
-  context('fetchAllTodos', function () {
+  describe('.fetchAllTodos()', function () {
     const todos = [{ label: 'fake1' }, { label: 'fake2' }];
     const subject = TodoActions.fetchAllTodos();
     const action = {
@@ -147,7 +147,7 @@ describe('TodoActions', function () {
     });
   });
 
-  context('markTodo', function () {
+  describe('.markTodo()', function () {
     const id = 5;
     const isComplete = true;
     const subject = TodoActions.markTodo(id, isComplete);
@@ -178,7 +178,7 @@ describe('TodoActions', function () {
     });
   });
 
-  context('markAllTodos', function () {
+  describe('.markAllTodos()', function () {
     const isComplete = true;
     const subject = TodoActions.markAllTodos(isComplete);
     const action = {
@@ -191,7 +191,7 @@ describe('TodoActions', function () {
     });
   });
 
-  context('moveTodo', function () {
+  describe('.moveTodo()', function () {
     const at = 5;
     const to = 8;
     const subject = TodoActions.moveTodo(at, to);

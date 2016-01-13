@@ -3,7 +3,7 @@ import { List, Record } from 'immutable';
 
 import todos from '../../js/reducers/todos';
 
-describe('todos', function () {
+describe('todos()', function () {
   const Todo = new Record({
     id: 0,
     index: 0,
@@ -38,7 +38,7 @@ describe('todos', function () {
     expect(todos(state, { type: 'NONSENSE' })).to.equal(state);
   });
 
-  context('addTodo', function () {
+  context('action.type = ADD_TODO', function () {
     const action = {
       type: 'ADD_TODO',
       payload: {
@@ -57,7 +57,7 @@ describe('todos', function () {
     });
   });
 
-  context('clearCompleteTodos', function () {
+  context('action.type = CLEAR_COMPLETE_TODOS', function () {
     const action = {
       type: 'CLEAR_COMPLETE_TODOS',
     };
@@ -69,7 +69,7 @@ describe('todos', function () {
     });
   });
 
-  context('deleteTodo', function () {
+  context('action.type = DELETE_TODO', function () {
     const action = {
       type: 'DELETE_TODO',
       payload: {
@@ -84,7 +84,7 @@ describe('todos', function () {
     });
   });
 
-  context('editTodo', function () {
+  context('action.type = EDIT_TODO', function () {
     const action = {
       type: 'EDIT_TODO',
       payload: {
@@ -103,7 +103,7 @@ describe('todos', function () {
   });
 
 
-  context('fetchAllTodos', function () {
+  context('action.type = FETCH_ALL_TODOS', function () {
     const action = {
       type: 'FETCH_ALL_TODOS',
       payload: {
@@ -135,7 +135,7 @@ describe('todos', function () {
     });
   });
 
-  context('markAllTodos', function () {
+  context('action.type = MARK_ALL_TODOS', function () {
     const action = {
       type: 'MARK_ALL_TODOS',
       payload: {
@@ -150,7 +150,7 @@ describe('todos', function () {
     });
   });
 
-  context('markTodo', function () {
+  context('action.type = MARK_TODO', function () {
     const action = {
       type: 'MARK_TODO',
       payload: {
@@ -167,7 +167,7 @@ describe('todos', function () {
     });
   });
 
-  context('moveTodo', function () {
+  context('action.type = MOVE_TODO', function () {
     const action = {
       type: 'MOVE_TODO',
       payload: {
