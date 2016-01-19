@@ -34,10 +34,6 @@ export default class App extends Component {
     todos: PropTypes.instanceOf(List).isRequired,
   }
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
   componentWillMount() {
     this.props.actions.fetchAllTodos();
   }

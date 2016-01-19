@@ -24,7 +24,7 @@ export default class TodoList extends Component {
   }
 
   renderFooter(completeCount) {
-    const { actions, todos } = this.props;
+    const { actions, filter, todos } = this.props;
     const { clearCompleteTodos, moveTodo } = actions;
     const { size } = todos;
 
@@ -39,6 +39,7 @@ export default class TodoList extends Component {
       <Footer
         clearCompleteTodos={clearCompleteTodos}
         completeCount={completeCount}
+        filter={filter}
         incompleteCount={incompleteCount}
         maxIndex={maxIndex}
         moveTodo={moveTodo}

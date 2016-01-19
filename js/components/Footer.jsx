@@ -27,6 +27,9 @@ function collect(connect, monitor) {
 /**
  * Manages routing using ReactRouter.Link, as well as renders a
  * 'Clear complete' button and complete tasks counter.
+ *
+ * @note: we pass `filter` to this component to trigger a re-render when the
+ * filter changes. This allows `Link`'s `activeClassName` to work correctly.
  */
 @DropTarget(Items.TODO, target, collect)
 export default class Footer extends Component {
@@ -35,6 +38,7 @@ export default class Footer extends Component {
     clearCompleteTodos: PropTypes.func.isRequired,
     completeCount: PropTypes.number.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
+    filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
     incompleteCount: PropTypes.number.isRequired,
     isOver: PropTypes.bool.isRequired,
     maxIndex: PropTypes.number.isRequired,
@@ -80,9 +84,9 @@ export default class Footer extends Component {
       <footer className={classes}>
         {this.renderTodoCount()}
         <ul className="filters">
-          <li><Link activeClassName="selected" to="/all">All</Link></li>
-          <li><Link activeClassName="selected" to="/active">Active</Link></li>
-          <li><Link activeClassName="selected" to="/completed">Completed</Link></li>
+          <li><Link activeClassName="selected" to="all">All</Link></li>
+          <li><Link activeClassName="selected" to="active">Active</Link></li>
+          <li><Link activeClassName="selected" to="completed">Completed</Link></li>
         </ul>
         {this.renderClearButton()}
       </footer>

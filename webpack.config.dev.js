@@ -20,20 +20,16 @@ module.exports = {
   },
 
   module: {
-    preLoaders: [
-      {
-        loader: 'eslint',
-        test: /\.jsx?$/,
-        exclude: /node_modules/
-      }
-    ],
-    loaders: [
-      {
-        loader: 'babel',
-        test: /\.jsx?$/,
-        exclude: /node_modules/
-      }
-    ]
+    preLoaders: [{
+      loader: 'eslint',
+      test: /\.jsx?$/,
+      exclude: /node_modules/
+    }],
+    loaders: [{
+      loader: 'babel',
+      test: /\.jsx?$/,
+      exclude: /node_modules/
+    }]
   },
 
   resolve: {

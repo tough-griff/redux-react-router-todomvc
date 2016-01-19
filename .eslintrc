@@ -1,9 +1,7 @@
 {
   "extends": "airbnb",
   "parser": "babel-eslint",
-  "plugins": [
-    "babel"
-  ],
+  "plugins": ["babel"],
   "rules": {
     "new-cap": 0,
     "babel/new-cap": 2

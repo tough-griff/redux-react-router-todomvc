@@ -8,6 +8,6 @@ export default (
     <Route path="all" />
     <Route path="active" />
     <Route path="completed" />
-    <Redirect from="/" to="/all" />
+    <Redirect from="/" to="all" />
   </Route>
 );
