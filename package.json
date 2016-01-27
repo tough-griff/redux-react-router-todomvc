@@ -16,6 +16,10 @@
     "test:watch": "NODE_ENV=test npm run test -- --watch --growl",
     "test": "NODE_ENV=test mocha --recursive --compilers=js:babel-register --require=./test/helpers/jsdom.js"
   },
+  "engines": {
+    "node": "5.x",
+    "npm": "3.x"
+  },
   "dependencies": {
     "babel-polyfill": "^6.3.14",
     "camel-case": "^1.2.2",
@@ -56,7 +60,7 @@
     "isparta": "^4.0.0",
     "jsdom": "^7.2.2",
     "json-server": "^0.8.7",
-    "mocha": "^2.4.2",
+    "mocha": "^2.4.3",
     "morgan": "^1.6.1",
     "node-libs-browser": "^0.5.3",
     "react-addons-test-utils": "^0.14.6",
@@ -68,7 +72,7 @@
     "redux-devtools-log-monitor": "^1.0.2",
     "redux-mock-store": "^0.0.6",
     "rimraf": "^2.5.1",
-    "sinon": "^1.17.2",
+    "sinon": "^1.17.3",
     "webpack": "^1.12.11",
     "webpack-dev-middleware": "^1.5.1",
     "webpack-hot-middleware": "^2.6.4"
