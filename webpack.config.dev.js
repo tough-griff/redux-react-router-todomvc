@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     app: [
       'webpack-hot-middleware/client',
+      'babel-polyfill',
       './js/index'
     ]
   },

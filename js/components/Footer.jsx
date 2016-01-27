@@ -43,11 +43,11 @@ export default class Footer extends Component {
     isOver: PropTypes.bool.isRequired,
     maxIndex: PropTypes.number.isRequired,
     moveTodo: PropTypes.func.isRequired,
-  }
+  };
 
   onRemoveCompleted = () => {
     this.props.clearCompleteTodos();
-  }
+  };
 
   renderClearButton() {
     if (!this.props.completeCount) return null;

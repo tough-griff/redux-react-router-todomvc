@@ -17,11 +17,11 @@ export default class TodoList extends Component {
     actions: PropTypes.objectOf(PropTypes.func.isRequired).isRequired,
     filter: PropTypes.oneOf(['all', 'active', 'completed']).isRequired,
     todos: PropTypes.instanceOf(List).isRequired,
-  }
+  };
 
   onToggle = (evt) => {
     this.props.actions.markAllTodos(evt.target.checked);
-  }
+  };
 
   renderFooter(completeCount) {
     const { actions, filter, todos } = this.props;
@@ -31,9 +31,9 @@ export default class TodoList extends Component {
     if (!size) return null;
 
     const incompleteCount = size - completeCount;
-    const maxIndex = todos.reduce((max, { index }) => {
-      return (index > max) ? index : max;
-    }, 0);
+    const maxIndex = todos.reduce((max, { index }) =>
+      (index > max) ? index : max
+    , 0);
 
     return (
       <Footer
@@ -71,7 +71,7 @@ export default class TodoList extends Component {
         {...todoObj}
       />
     );
-  }
+  };
 
   renderToggle(completeCount) {
     return (
@@ -86,9 +86,9 @@ export default class TodoList extends Component {
 
   render() {
     const { todos } = this.props;
-    const completeCount = todos.reduce((count, { isComplete }) => {
-      return (isComplete) ? count + 1 : count;
-    }, 0);
+    const completeCount = todos.reduce((count, { isComplete }) =>
+      (isComplete) ? count + 1 : count
+    , 0);
 
     return (
       <section className="main">

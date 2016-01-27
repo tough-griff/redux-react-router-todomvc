@@ -11,29 +11,29 @@ export default class TextInput extends Component {
     onSave: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
     value: PropTypes.string,
-  }
+  };
 
   state = {
     value: this.props.value || '',
-  }
+  };
 
   onBlur = () => {
     this.props.onSave(this.state.value.trim());
     this.setState({
       value: '',
     });
-  }
+  };
 
   onChange = (evt) => {
     this.setState({
       value: evt.target.value,
     });
-  }
+  };
 
   onKeyDown = (evt) => {
     if (evt.keyCode !== ENTER_KEY_CODE) return;
     this.onBlur();
-  }
+  };
 
   render() {
     const { className, placeholder } = this.props;

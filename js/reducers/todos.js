@@ -22,11 +22,11 @@ const ACTIONS_MAP = {
   },
 
   editTodo(state, { id, label }) {
-    return state.map(todo => {
-      return (todo.get('id') === id)
+    return state.map(todo =>
+      (todo.get('id') === id)
         ? todo.set('label', label)
-        : todo;
-    });
+        : todo
+    );
   },
 
   fetchAllTodos(state, { todos: allTodos }) {
@@ -40,11 +40,11 @@ const ACTIONS_MAP = {
   },
 
   markTodo(state, { id, isComplete }) {
-    return state.map(todo => {
-      return (todo.get('id') === id)
+    return state.map(todo =>
+      (todo.get('id') === id)
         ? todo.set('isComplete', isComplete)
-        : todo;
-    });
+        : todo
+    );
   },
 
   moveTodo(state, { at, to }) {

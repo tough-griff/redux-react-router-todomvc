@@ -10,13 +10,13 @@ export default class Header extends Component {
   static propTypes = {
     addTodo: PropTypes.func.isRequired,
     fetchAllTodos: PropTypes.func.isRequired,
-  }
+  };
 
   onSave = (label) => {
     if (!label.length) return;
 
     this.props.addTodo(label);
-  }
+  };
 
   render() {
     return (

@@ -6,7 +6,7 @@ import setup from '../helpers/componentSetup';
 import Header from '../../js/components/Header';
 import { TextInput } from '../../js/components';
 
-describe('Header', function () {
+describe('<Header />', function () {
   const addTodo = sinon.spy();
   const fetchAllTodos = sinon.stub();
   const { output } = setup(Header, { addTodo, fetchAllTodos });

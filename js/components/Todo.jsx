@@ -60,23 +60,23 @@ export default class Todo extends Component {
     label: PropTypes.string.isRequired,
     markTodo: PropTypes.func.isRequired,
     moveTodo: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     isEditing: false,
-  }
+  };
 
   onDestroy = () => {
     const { deleteTodo, id } = this.props;
 
     deleteTodo(id);
-  }
+  };
 
   onEdit = () => {
     this.setState({
       isEditing: true,
     });
-  }
+  };
 
   onSave = (newLabel) => {
     const { deleteTodo, editTodo, id, label } = this.props;
@@ -90,13 +90,13 @@ export default class Todo extends Component {
     this.setState({
       isEditing: false,
     });
-  }
+  };
 
   onToggle = () => {
     const { id, isComplete, markTodo } = this.props;
 
     markTodo(id, !isComplete);
-  }
+  };
 
   renderInput() {
     if (!this.state.isEditing) return null;

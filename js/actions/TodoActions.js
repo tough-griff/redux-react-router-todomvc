@@ -15,7 +15,7 @@ function parse(response) {
 const TodoActions = {
   addTodo(label) {
     return dispatch => {
-      return fetch(`${SERVER_URL}/todos`, {
+      fetch(`${SERVER_URL}/todos`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -49,7 +49,7 @@ const TodoActions = {
 
   deleteTodo(id) {
     return dispatch => {
-      return fetch(`${SERVER_URL}/todos/${id}`, {
+      fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'DELETE',
       })
       .then(checkStatus)
@@ -67,7 +67,7 @@ const TodoActions = {
 
   editTodo(id, label) {
     return dispatch => {
-      return fetch(`${SERVER_URL}/todos/${id}`, {
+      fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',
@@ -94,7 +94,7 @@ const TodoActions = {
 
   fetchAllTodos() {
     return dispatch => {
-      return fetch(`${SERVER_URL}/todos`, {
+      fetch(`${SERVER_URL}/todos`, {
         method: 'GET',
       })
       .then(checkStatus)
@@ -113,7 +113,7 @@ const TodoActions = {
 
   markTodo(id, isComplete) {
     return dispatch => {
-      return fetch(`${SERVER_URL}/todos/${id}`, {
+      fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
         headers: {
           Accept: 'application/json',

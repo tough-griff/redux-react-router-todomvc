@@ -32,7 +32,7 @@ export default class App extends Component {
     actions: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     todos: PropTypes.instanceOf(List).isRequired,
-  }
+  };
 
   componentWillMount() {
     this.props.actions.fetchAllTodos();
