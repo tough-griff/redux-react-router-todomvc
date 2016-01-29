@@ -10,14 +10,16 @@ function getDebugSessionKey() {
   return (matches && matches.length > 0) ? matches[1] : null;
 }
 
-const finalCreateStore = compose(
-  applyMiddleware(thunk),
-  DevTools.instrument(),
-  persistState(getDebugSessionKey()),
-)(createStore);
-
 export default function configureStore(initialState) {
-  const store = finalCreateStore(rootReducer, initialState);
+  const store = createStore(
+    rootReducer,
+    initialState,
+    compose(
+      applyMiddleware(thunk),
+      DevTools.instrument(),
+      persistState(getDebugSessionKey()),
+    ),
+  );
 
   // Enable Webpack hot module replacement for reducers
   if (module.hot) {
