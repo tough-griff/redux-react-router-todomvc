@@ -1,3 +1,9 @@
+.destroy,
+.toggle,
+.toggle-all {
+  cursor: pointer;
+}
+
 .footer {
   position: relative;
   z-index: 2;
@@ -28,4 +34,8 @@
 
 .todo-list li.over {
   margin-top: -2px;
+}
+
+.todo-list li label {
+  cursor: move;
 }
