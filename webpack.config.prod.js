@@ -10,12 +10,13 @@ module.exports = {
     app: [
       'babel-polyfill',
       './js/index'
-    ]
+    ],
+    style: './css/index.scss'
   },
 
   output: {
     path: path.join(__dirname, 'assets', 'js'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/assets/js/'
   },
 
@@ -29,7 +30,11 @@ module.exports = {
       loader: 'babel',
       test: /\.jsx?$/,
       exclude: /node_modules/
-    }]
+    }, {
+      loaders: ['style', 'css', 'sass'],
+      test: /\.scss$/
+    }
+]
   },
 
   resolve: {

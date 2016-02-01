@@ -32,7 +32,6 @@ if (nodeEnv === 'development') {
 }
 
 // Serve static files and index.html
-app.use('/assets/css', express.static('css'));
 if (nodeEnv === 'production') {
   app.use('/assets/js', express.static('assets/js'));
 }

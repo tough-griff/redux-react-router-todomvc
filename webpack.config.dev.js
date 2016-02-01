@@ -11,12 +11,13 @@ module.exports = {
       'webpack-hot-middleware/client',
       'babel-polyfill',
       './js/index'
-    ]
+    ],
+    style: './css/index.scss'
   },
 
   output: {
     path: path.join(__dirname, 'assets', 'js'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/assets/js/'
   },
 
@@ -30,6 +31,9 @@ module.exports = {
       loader: 'babel',
       test: /\.jsx?$/,
       exclude: /node_modules/
+    }, {
+      loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
+      test: /\.scss$/
     }]
   },
 
