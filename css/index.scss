@@ -1,6 +1,17 @@
 // Main styles
 @import "~todomvc-app-css/index";
 
+// Variables
+$white: #fff;
+$green: #5dc2af;
+
+// Use pointer cursor for buttons
+.destroy,
+.toggle,
+.toggle-all {
+  cursor: pointer;
+}
+
 // Click and Drag Styles
 .footer {
   position: relative;
@@ -12,24 +23,28 @@
 }
 
 .over {
-  border-top: 2px solid #5dc2af;
+  border-top: 2px solid $green;
 }
 
 .todo-list {
   position: relative;
   z-index: 0;
 
-  li {
-    background: #fff;
+  > li {
+    background: $white;
     position: relative;
     z-index: 1;
 
     &.dragging {
-      opacity: 0.25;
+      opacity: .25;
     }
 
     &.over {
       margin-top: -2px;
+    }
+
+    label {
+      cursor: move;
     }
   }
 }
