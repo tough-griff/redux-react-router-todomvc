@@ -12,7 +12,10 @@ module.exports = {
       'babel-polyfill',
       './js/index'
     ],
-    style: './css/index.scss'
+    style: [
+      'webpack-hot-middleware/client',
+      './css/index.scss'
+    ]
   },
 
   output: {
