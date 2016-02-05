@@ -22,7 +22,7 @@ describe('<Footer />', function () {
   const { output } = setup(Footer.DecoratedComponent, props);
   const list = output.props.children[1];
 
-  it('should render correctly', function () {
+  it('renders correctly', function () {
     expect(output.type).to.equal('footer');
     expect(output.props.className).to.equal('footer');
 
@@ -34,7 +34,7 @@ describe('<Footer />', function () {
   context('with a zero complete count', function () {
     const button = output.props.children[2];
 
-    it('should not render the clear complete button', function () {
+    it('does not render the clear complete button', function () {
       expect(button).to.be(null);
     });
   });
@@ -45,7 +45,7 @@ describe('<Footer />', function () {
     });
     const button = completeOutput.props.children[2];
 
-    it('should render the clear complete button', function () {
+    it('renders the clear complete button', function () {
       expect(button.type).to.equal('button');
       expect(button.props.className).to.equal('clear-completed');
       expect(button.props.onClick).to.be.a('function');
@@ -53,7 +53,7 @@ describe('<Footer />', function () {
     });
 
     describe('#onRemoveCompleted()', function () {
-      it('should call clearCompleteTodos', function () {
+      it('calls clearCompleteTodos', function () {
         expect(clearCompleteTodos.called).to.be(false);
         button.props.onClick();
         expect(clearCompleteTodos.called).to.be(true);
@@ -64,7 +64,7 @@ describe('<Footer />', function () {
   context('with a zero incomplete count', function () {
     const count = output.props.children[0];
 
-    it('should render the text "No"', function () {
+    it('renders the text "No"', function () {
       const countText = count.props.children[0].props.children;
 
       expect(countText).to.equal('No');
@@ -78,7 +78,7 @@ describe('<Footer />', function () {
     });
     const count = incompleteOutput.props.children[0];
 
-    it('should render the incomplete count', function () {
+    it('renders the incomplete count', function () {
       const countText = count.props.children[0].props.children;
 
       expect(countText).to.equal(incompleteCount);

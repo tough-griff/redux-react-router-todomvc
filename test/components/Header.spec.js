@@ -12,7 +12,7 @@ describe('<Header />', function () {
   const { output } = setup(Header, { addTodo, fetchAllTodos });
   const [h1, textInput] = output.props.children;
 
-  it('should render correctly', function () {
+  it('renders correctly', function () {
     expect(output.type).to.equal('header');
     expect(output.props.className).to.equal('header');
 
@@ -27,7 +27,7 @@ describe('<Header />', function () {
   });
 
   describe('#onSave()', function () {
-    it('should call addTodo correctly', function () {
+    it('calls addTodo correctly', function () {
       textInput.props.onSave('');
       expect(addTodo.called).to.be(false);
       textInput.props.onSave('Example');
