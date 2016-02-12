@@ -14,7 +14,7 @@ function parse(response) {
 
 const TodoActions = {
   addTodo(label) {
-    return dispatch => {
+    return dispatch =>
       fetch(`${SERVER_URL}/todos`, {
         method: 'POST',
         headers: {
@@ -25,19 +25,17 @@ const TodoActions = {
           isComplete: false,
           label,
         }),
-      })
-      .then(checkStatus)
-      .then(parse)
-      .then(todo => dispatch({
-        type: Actions.ADD_TODO,
-        payload: { todo },
-      }))
-      .catch(err => dispatch({
-        type: Actions.ADD_TODO,
-        payload: err,
-        error: true,
-      }));
-    };
+      }).then(checkStatus)
+        .then(parse)
+        .then(todo => dispatch({
+          type: Actions.ADD_TODO,
+          payload: { todo },
+        }))
+        .catch(err => dispatch({
+          type: Actions.ADD_TODO,
+          payload: err,
+          error: true,
+        }));
   },
 
   // FIXME: this is just a stub--does nothing on the server.
@@ -48,25 +46,23 @@ const TodoActions = {
   },
 
   deleteTodo(id) {
-    return dispatch => {
+    return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'DELETE',
-      })
-      .then(checkStatus)
-      .then(() => dispatch({
-        type: Actions.DELETE_TODO,
-        payload: { id },
-      }))
-      .catch(err => dispatch({
-        type: Actions.DELETE_TODO,
-        payload: err,
-        error: true,
-      }));
-    };
+      }).then(checkStatus)
+        .then(() => dispatch({
+          type: Actions.DELETE_TODO,
+          payload: { id },
+        }))
+        .catch(err => dispatch({
+          type: Actions.DELETE_TODO,
+          payload: err,
+          error: true,
+        }));
   },
 
   editTodo(id, label) {
-    return dispatch => {
+    return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
         headers: {
@@ -74,45 +70,41 @@ const TodoActions = {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ label }),
-      })
-      .then(checkStatus)
-      .then(parse)
-      .then(todo => dispatch({
-        type: Actions.EDIT_TODO,
-        payload: {
-          id: todo.id,
-          label: todo.label,
-        },
-      }))
-      .catch(err => dispatch({
-        type: Actions.EDIT_TODO,
-        payload: err,
-        error: true,
-      }));
-    };
+      }).then(checkStatus)
+        .then(parse)
+        .then(todo => dispatch({
+          type: Actions.EDIT_TODO,
+          payload: {
+            id: todo.id,
+            label: todo.label,
+          },
+        }))
+        .catch(err => dispatch({
+          type: Actions.EDIT_TODO,
+          payload: err,
+          error: true,
+        }));
   },
 
   fetchAllTodos() {
-    return dispatch => {
+    return dispatch =>
       fetch(`${SERVER_URL}/todos`, {
         method: 'GET',
-      })
-      .then(checkStatus)
-      .then(parse)
-      .then(todos => dispatch({
-        type: Actions.FETCH_ALL_TODOS,
-        payload: { todos },
-      }))
-      .catch(err => dispatch({
-        type: Actions.FETCH_ALL_TODOS,
-        payload: err,
-        error: true,
-      }));
-    };
+      }).then(checkStatus)
+        .then(parse)
+        .then(todos => dispatch({
+          type: Actions.FETCH_ALL_TODOS,
+          payload: { todos },
+        }))
+        .catch(err => dispatch({
+          type: Actions.FETCH_ALL_TODOS,
+          payload: err,
+          error: true,
+        }));
   },
 
   markTodo(id, isComplete) {
-    return dispatch => {
+    return dispatch =>
       fetch(`${SERVER_URL}/todos/${id}`, {
         method: 'PATCH',
         headers: {
@@ -120,22 +112,20 @@ const TodoActions = {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ isComplete }),
-      })
-      .then(checkStatus)
-      .then(parse)
-      .then(todo => dispatch({
-        type: Actions.MARK_TODO,
-        payload: {
-          id: todo.id,
-          isComplete: todo.isComplete,
-        },
-      }))
-      .catch(err => dispatch({
-        type: Actions.MARK_TODO,
-        payload: err,
-        error: true,
-      }));
-    };
+      }).then(checkStatus)
+        .then(parse)
+        .then(todo => dispatch({
+          type: Actions.MARK_TODO,
+          payload: {
+            id: todo.id,
+            isComplete: todo.isComplete,
+          },
+        }))
+        .catch(err => dispatch({
+          type: Actions.MARK_TODO,
+          payload: err,
+          error: true,
+        }));
   },
 
   // FIXME: this is just a stub--does nothing on the server.

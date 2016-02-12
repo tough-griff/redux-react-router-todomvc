@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Provider } from 'react-redux';
-import Router, { browserHistory } from 'react-router';
+import { browserHistory, Router } from 'react-router';
 
 import DevTools from './DevTools';
 import routes from '../routes';
