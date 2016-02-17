@@ -1,45 +1,44 @@
 'use-strict';
 
-var path = require('path');
-var webpack = require('webpack');
+import path from 'path';
+import webpack from 'webpack';
 
-module.exports = {
+export default {
   context: __dirname,
 
   entry: {
     app: [
       'babel-polyfill',
-      './js/index'
+      './js/index',
     ],
-    style: './css/index.scss'
+    style: './css/index.scss',
   },
 
   output: {
-    path: path.join(__dirname, 'assets', 'js'),
+    path: path.join(__dirname, 'assets'),
     filename: '[name].bundle.js',
-    publicPath: '/assets/js/'
+    publicPath: '/assets/',
   },
 
   module: {
     preLoaders: [{
       loader: 'eslint',
       test: /\.jsx?$/,
-      exclude: /node_modules/
-      }],
+      exclude: /node_modules/,
+    }],
     loaders: [{
       loader: 'babel',
       test: /\.jsx?$/,
-      exclude: /node_modules/
+      exclude: /node_modules/,
     }, {
       loaders: ['style', 'css', 'sass'],
-      test: /\.scss$/
-    }
-]
+      test: /\.scss$/,
+    }],
   },
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    modulesDirectories: ['node_modules']
+    modulesDirectories: ['node_modules'],
   },
 
   devtool: 'source-map',
@@ -49,16 +48,16 @@ module.exports = {
     new webpack.DefinePlugin({
       __DEVELOPMENT__: false,
       'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
-        warnings: false
+        warnings: false,
       },
       output: {
-        comments: false
-      }
-    })
-  ]
+        comments: false,
+      },
+    }),
+  ],
 };

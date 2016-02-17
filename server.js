@@ -6,7 +6,7 @@ import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
-import config from './webpack.config.dev';
+import config from './webpack.config.dev.babel';
 
 const app = express();
 const compiler = webpack(config);
@@ -33,7 +33,7 @@ if (nodeEnv === 'development') {
 
 // Serve static files and index.html
 if (nodeEnv === 'production') {
-  app.use('/assets/js', express.static('assets/js'));
+  app.use('/assets', express.static('assets'));
 }
 
 // Host the json server under /api
@@ -44,6 +44,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+/* eslint-disable no-console */
 app.listen(port, 'localhost', err => {
   if (err) {
     console.log(err);

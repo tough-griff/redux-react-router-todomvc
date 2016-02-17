@@ -12,7 +12,7 @@ function parse(response) {
   return response.json();
 }
 
-const TodoActions = {
+export default {
   addTodo(label) {
     return dispatch =>
       fetch(`${SERVER_URL}/todos`, {
@@ -144,5 +144,3 @@ const TodoActions = {
     };
   },
 };
-
-export default TodoActions;

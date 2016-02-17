@@ -1,53 +1,51 @@
-'use-strict';
+import path from 'path';
+import webpack from 'webpack';
 
-var path = require('path');
-var webpack = require('webpack');
-
-module.exports = {
+export default {
   context: __dirname,
 
   entry: {
     app: [
       'webpack-hot-middleware/client',
       'babel-polyfill',
-      './js/index'
+      './js/index',
     ],
     style: [
       'webpack-hot-middleware/client',
-      './css/index.scss'
-    ]
+      './css/index.scss',
+    ],
   },
 
   output: {
-    path: path.join(__dirname, 'assets', 'js'),
+    path: path.join(__dirname, 'assets'),
     filename: '[name].bundle.js',
-    publicPath: '/assets/js/'
+    publicPath: '/assets/',
   },
 
   module: {
     preLoaders: [{
       loader: 'eslint',
       test: /\.jsx?$/,
-      exclude: /node_modules/
+      exclude: /node_modules/,
     }],
     loaders: [{
       loader: 'babel',
       test: /\.jsx?$/,
-      exclude: /node_modules/
+      exclude: /node_modules/,
     }, {
       loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
-      test: /\.scss$/
-    }]
+      test: /\.scss$/,
+    }],
   },
 
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    modulesDirectories: ['node_modules']
+    modulesDirectories: ['node_modules'],
   },
 
   debug: true,
 
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
 
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -56,8 +54,8 @@ module.exports = {
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true,
       'process.env': {
-        'NODE_ENV': JSON.stringify('development')
-      }
-    })
-  ]
+        NODE_ENV: JSON.stringify('development'),
+      },
+    }),
+  ],
 };

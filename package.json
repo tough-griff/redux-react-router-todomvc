@@ -6,11 +6,11 @@
   "author": "Griffin Yourick",
   "license": "MIT",
   "scripts": {
-    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
+    "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.babel.js",
     "build": "npm run clean && npm run build:webpack",
     "check": "npm run lint && npm run test",
     "clean": "rimraf assets coverage",
-    "lint": "eslint --ext=.js,.jsx js test",
+    "lint": "eslint --ext=.js,.jsx js/ test/ *.js",
     "start": "babel-node server.js",
     "test:cov": "NODE_ENV=test babel-node $(npm bin)/isparta cover $(npm bin)/_mocha -- --recursive",
     "test:watch": "NODE_ENV=test npm run test -- --watch --growl",
