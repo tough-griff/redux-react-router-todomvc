@@ -53,3 +53,4 @@ app.listen(port, 'localhost', err => {
 
   console.log(`Server listening at http://localhost:${port} in ${nodeEnv} mode.`);
 });
+/* eslint-enable no-console */
