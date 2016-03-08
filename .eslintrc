@@ -4,7 +4,8 @@
   "plugins": ["babel"],
   "rules": {
     "new-cap": 0,
-    "babel/new-cap": 2
+    "babel/new-cap": 2,
+    "react/prefer-stateless-function": 0
   },
   "globals": {
     "__DEVELOPMENT__": true
