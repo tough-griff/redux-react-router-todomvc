@@ -1,4 +1,4 @@
-# React/Reflux Demo
+# React/Redux Demo
 Using:
 - [immutable.js](https://github.com/facebook/immutable-js/)
 - [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch)
